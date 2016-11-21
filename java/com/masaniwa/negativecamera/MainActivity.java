@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -23,9 +24,6 @@ public final class MainActivity extends AppCompatActivity implements CvCameraVie
     private static final String directory = "/NegativeCamera/";
     private static final String format = "yyyyMMdd.hhmmss";
 
-    private CameraBridgeViewBase cameraView;
-    private NegativeCamera negativeCamera;
-
     private BaseLoaderCallback loaderCallback = new BaseLoaderCallback(this)
     {
         @Override
@@ -44,18 +42,21 @@ public final class MainActivity extends AppCompatActivity implements CvCameraVie
         }
     };
 
+    private NegativeCamera negativeCamera;
+    private CameraBridgeViewBase cameraView;
+
     private void save()
     {
-        String text = "";
+        final StringBuffer text = new StringBuffer();
 
         try
         {
             negativeCamera.Save();
-            text = getString(R.string.saving_success);
+            text.append(getString(R.string.saving_success));
         }
         catch(IOException e)
         {
-            text = getString(R.string.saving_failed);
+            text.append(getString(R.string.saving_failed));
         }
         finally
         {
@@ -67,7 +68,11 @@ public final class MainActivity extends AppCompatActivity implements CvCameraVie
     protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        negativeCamera = new NegativeCamera(getContentResolver(), quality, directory, format);
 
         cameraView = (CameraBridgeViewBase) findViewById(R.id.camera_view);
         cameraView.setCvCameraViewListener(this);
@@ -115,7 +120,7 @@ public final class MainActivity extends AppCompatActivity implements CvCameraVie
     @Override
     public void onCameraViewStarted(final int width, final int height)
     {
-        negativeCamera = new NegativeCamera(getContentResolver(), width, height, quality, directory, format);
+        negativeCamera.Initialize(width, height);
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class NegativeCamera
+final class NegativeCamera
 {
     private static final String slash = "/";
     private static final String extension = ".jpg";
@@ -28,9 +28,10 @@ public class NegativeCamera
     private final File file;
     private final SimpleDateFormat format;
     private final ContentResolver resolver;
-    private final Mat frame;
 
-    protected static void makeDirectory(final File file)
+    private Mat frame;
+
+    private static void makeDirectory(final File file)
     {
         if(!file.exists())
         {
@@ -38,7 +39,7 @@ public class NegativeCamera
         }
     }
 
-    protected static Bitmap takeBitmap(final Mat frame)
+    private static Bitmap takeBitmap(final Mat frame)
     {
         final Bitmap bitmap = Bitmap.createBitmap(frame.width(), frame.height(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(frame, bitmap);
@@ -46,7 +47,7 @@ public class NegativeCamera
         return bitmap;
     }
 
-    protected static void savePicture(final String path, final Bitmap bitmap, final int quality) throws IOException
+    private static void savePicture(final String path, final Bitmap bitmap, final int quality) throws IOException
     {
         try
         {
@@ -62,10 +63,9 @@ public class NegativeCamera
         }
     }
 
-    protected static void saveIndex(final ContentResolver resolver, final String name, final String path)
+    private static void saveIndex(final ContentResolver resolver, final String name, final String path)
     {
         final ContentValues values = new ContentValues();
-
         values.put(MediaStore.Images.Media.MIME_TYPE, type);
         values.put(MediaStore.Images.Media.TITLE, name);
         values.put(dataKey, path);
@@ -73,31 +73,40 @@ public class NegativeCamera
         resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
 
-    public NegativeCamera(final ContentResolver resolver, final int width, final int height, final int quality, final String directory, final String format)
+    NegativeCamera(final ContentResolver resolver, final int quality, final String directory, final String format)
     {
         this.quality = quality;
         file = new File(Environment.getExternalStorageDirectory().getPath() + directory);
         this.format = new SimpleDateFormat(format);
         this.resolver = resolver;
+    }
+
+    void Initialize(final int width, final int height)
+    {
+        Release();
+
         frame = new Mat(height, width, CvType.CV_8UC3);
     }
 
-    public void Release()
+    void Release()
     {
-        frame.release();
+        if(frame != null)
+        {
+            frame.release();
+        }
     }
 
-    public void Input(final Mat frame)
+    void Input(final Mat frame)
     {
         Core.bitwise_not(frame, this.frame);
     }
 
-    public Mat Output()
+    Mat Output()
     {
         return frame;
     }
 
-    public void Save() throws IOException
+    void Save() throws IOException
     {
         makeDirectory(file);
 
