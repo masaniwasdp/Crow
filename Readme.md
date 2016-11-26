@@ -14,4 +14,4 @@ NegativeCamera
 [MITライセンス](https://github.com/masaniwasdp/NegativeCamera/blob/master/Licence.txt)が適用されます。
 
 ## 作者
-+ masaniwa
++ [masaniwa](https://github.com/masaniwasdp)
