@@ -18,12 +18,18 @@ import java.io.IOException;
 import static org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import static org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 
+/**
+ * アプリケーションのメインとなるアクティビティ
+ */
 public final class MainActivity extends AppCompatActivity implements CvCameraViewListener2
 {
-    private static final int quality = 100;
-    private static final String directory = "/NegativeCamera/";
-    private static final String format = "yyyyMMdd.hhmmss";
+    private static final int quality = 100;                     /** 画像を保存するときの品質 */
+    private static final String directory = "/NegativeCamera/"; /** 画像を保存するディレクトリ */
+    private static final String format = "yyyyMMdd.hhmmss";     /** 保存する画像のファイル名に付加する日時のフォーマット */
 
+    /**
+     * OpenCVのライブラリが読み込まれたときのコールバック関数
+     */
     private BaseLoaderCallback loaderCallback = new BaseLoaderCallback(this)
     {
         @Override
@@ -42,9 +48,12 @@ public final class MainActivity extends AppCompatActivity implements CvCameraVie
         }
     };
 
-    private NegativeCamera negativeCamera;
-    private CameraBridgeViewBase cameraView;
+    private NegativeCamera negativeCamera;   /** ネガポジ反転カメラ */
+    private CameraBridgeViewBase cameraView; /** カメラビューの管理オブジェクト */
 
+    /**
+     * ネガポジ反転した画像をストレージに保存する。
+     */
     private void save()
     {
         final StringBuffer text = new StringBuffer();

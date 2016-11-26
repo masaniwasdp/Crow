@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ネガポジカメラ</string>
+    <string name="saving_failed">画像の保存に失敗しました。</string>
+    <string name="saving_success">画像を保存しました。</string>
+</resources>
