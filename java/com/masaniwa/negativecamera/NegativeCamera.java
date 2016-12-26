@@ -32,7 +32,8 @@ final class NegativeCamera
     private final SimpleDateFormat format;  /** ファイル名に付加する日時のフォーマット */
     private final ContentResolver resolver; /** コンテンツを管理するオブジェクトへのアクセス */
 
-    private Mat frame; /** ネガポジ反転した画像 */
+    private boolean initialized; /** オブジェクトの初期化状態 */
+    private Mat frame;           /** ネガポジ反転した画像 */
 
     /**
      * ディレクトリが無い場合にディレクトリを作成する。
@@ -111,6 +112,7 @@ final class NegativeCamera
         file = new File(Environment.getExternalStorageDirectory().getPath() + directory);
         this.format = new SimpleDateFormat(format);
         this.resolver = resolver;
+        initialized = false;
     }
 
     /**
@@ -123,6 +125,7 @@ final class NegativeCamera
         Release();
 
         frame = new Mat(height, width, CvType.CV_8UC3);
+        initialized = true;
     }
 
     /**
@@ -134,32 +137,52 @@ final class NegativeCamera
         {
             frame.release();
         }
+
+        initialized = false;
     }
 
     /**
      * 画像をネガポジ反転して保持する。
-     * @param frame 入力画像
+     * @param  frame                 入力画像
+     * @throws IllegalStateException オブジェクトを初期化していなかった場合
      */
-    void Input(final Mat frame)
+    void Input(final Mat frame) throws IllegalStateException
     {
+        if(!initialized)
+        {
+            throw new IllegalStateException();
+        }
+
         Core.bitwise_not(frame, this.frame);
     }
 
     /**
      * 保持しているネガポジ反転画像を返す。
      * @return ネガポジ反転画像
+     * @throws IllegalStateException オブジェクトを初期化していなかった場合
      */
-    Mat Output()
+    Mat Output() throws IllegalStateException
     {
+        if(!initialized)
+        {
+            throw new IllegalStateException();
+        }
+
         return frame;
     }
 
     /**
      * 保持している画像データをストレージに保存する。
-     * @throws IOException 画像を保存できなかった場合
+     * @throws IllegalStateException オブジェクトを初期化していなかった場合
+     * @throws IOException           画像を保存できなかった場合
      */
-    void Save() throws IOException
+    void Save() throws IllegalStateException, IOException
     {
+        if(!initialized)
+        {
+            throw new IllegalStateException();
+        }
+
         makeDirectory(file);
 
         final String name = format.format(new Date()) + extension;
