@@ -1,10 +1,12 @@
 NegativeCamera
 ===
 
+![NegativeCamera](https://github.com/masaniwasdp/Screenshots/blob/master/NegativeCamera.png)
+
 ネガポジ反転しているAndroidカメラアプリです。
 
 ## 概要
-デバイスのカメラ入力をリアルタイムにネガポジ反転して表示するアプリケーションです。
+Androidデバイスのカメラ入力をリアルタイムにネガポジ反転して表示するアプリケーションです。
 また、その画像を内部ストレージへjpeg画像として保存できます。
 
 ## 依存
