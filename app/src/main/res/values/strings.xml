@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NegativeCamera</string>
+    <string name="saving_success">Saved the image.</string>
+    <string name="saving_failed">Could not save the image.</string>
+    <string name="loading_failed">Failed to load OpenCV.</string>
+</resources>
