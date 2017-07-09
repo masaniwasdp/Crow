@@ -127,4 +127,4 @@ private fun takeBitmap(frame: Mat): Bitmap {
 }
 
 /** 画像を保存するディレクトリ。 */
-private val directory = "/NegativeCamera/"
+private const val directory = "/NegativeCamera/"

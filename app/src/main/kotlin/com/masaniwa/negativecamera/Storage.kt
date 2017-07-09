@@ -60,19 +60,19 @@ private fun saveIndex(resolver: ContentResolver, name: String, path: String) {
 }
 
 /** ファイルパス区切り文字。 */
-private val slash = "/"
+private const val slash = "/"
 
 /** ファイル拡張子。 */
-private val extension = ".jpg"
+private const val extension = ".jpg"
 
 /** ファイルのMIMEタイプ。 */
-private val type = "image/jpeg"
+private const val type = "image/jpeg"
 
 /** コンテンツURIのデータを示すキー。 */
-private val dataKey = "_data"
+private const val dataKey = "_data"
 
 /** 保存する画像のファイル名に付加する日時のフォーマット。 */
-private val format = "yyyyMMdd.hhmmss"
+private const val format = "yyyyMMdd.hhmmss"
 
 /** 画像を保存するときの品質。 */
-private val quality = 95
+private const val quality = 95
