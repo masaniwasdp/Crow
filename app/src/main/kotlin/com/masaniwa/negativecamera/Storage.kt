@@ -3,23 +3,24 @@ package com.masaniwa.negativecamera
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.graphics.Bitmap
-import android.os.Environment
-import android.provider.MediaStore
+import android.graphics.Bitmap.CompressFormat
+import android.os.Environment.getExternalStorageDirectory
+import android.provider.MediaStore.Images.Media
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 /**
  * Bitmap画像をjpegでストレージに保存してコンテンツリゾルバに登録する。
- * @param  bitmap      Bitmap画像。
- * @param  directory   保存先ディレクトリ。
- * @param  resolver    コンテンツリゾルバ。
- * @throws IOException 画像を保存できなかった場合。
+ * @param  bitmap    Bitmap画像。
+ * @param  directory 保存先ディレクトリ。
+ * @param  resolver  コンテンツリゾルバ。
+ * @throws java.io.IOException 画像を保存できなかった場合。
  */
-fun save(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
-    val file = File(Environment.getExternalStorageDirectory().path + directory)
+fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
+    val file = File(getExternalStorageDirectory().path + directory)
 
     if (!file.exists()) {
         file.mkdir()
@@ -28,23 +29,18 @@ fun save(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
     val name = SimpleDateFormat(format, Locale.US).format(Date()) + extension
     val path = file.absolutePath + slash + name
 
-    savePicture(bitmap, path)
+    saveBitmap(bitmap, path)
     saveIndex(resolver, name, path)
 }
 
 /**
  * Bitmap画像をjpegでストレージに保存する。
- * @param  bitmap      Bitmap画像。
- * @param  path        保存先ファイルパス。
- * @throws IOException 画像を保存できなかった場合。
+ * @param  bitmap Bitmap画像。
+ * @param  path   保存先ファイルパス。
+ * @throws java.io.IOException 画像を保存できなかった場合。
  */
-private fun savePicture(bitmap: Bitmap, path: String) {
-    val stream = FileOutputStream(path)
-
-    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
-
-    stream.flush()
-    stream.close()
+private fun saveBitmap(bitmap: Bitmap, path: String) {
+    FileOutputStream(path).use { bitmap.compress(CompressFormat.JPEG, quality, it) }
 }
 
 /**
@@ -54,13 +50,13 @@ private fun savePicture(bitmap: Bitmap, path: String) {
  * @param path     ファイルパス。
  */
 private fun saveIndex(resolver: ContentResolver, name: String, path: String) {
-    val values = ContentValues()
+    val values = ContentValues().apply {
+        put(Media.MIME_TYPE, type)
+        put(Media.TITLE, name)
+        put(dataKey, path)
+    }
 
-    values.put(MediaStore.Images.Media.MIME_TYPE, type)
-    values.put(MediaStore.Images.Media.TITLE, name)
-    values.put(dataKey, path)
-
-    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+    resolver.insert(Media.EXTERNAL_CONTENT_URI, values)
 }
 
 /** ファイルパス区切り文字。 */

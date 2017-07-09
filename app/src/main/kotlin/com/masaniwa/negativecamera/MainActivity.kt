@@ -1,33 +1,38 @@
 package com.masaniwa.negativecamera
 
 import android.graphics.Bitmap
+import android.graphics.Bitmap.Config
+import android.graphics.Bitmap.createBitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.WindowManager
+import android.view.WindowManager.LayoutParams
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.Toast.makeText
+import kotlinx.android.synthetic.main.activity_main.camera_view
+import kotlinx.android.synthetic.main.activity_main.negative_switch
+import kotlinx.android.synthetic.main.activity_main.save_button
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
 import org.opencv.android.LoaderCallbackInterface
-import org.opencv.android.OpenCVLoader.OPENCV_VERSION_3_2_0
+import org.opencv.android.OpenCVLoader
 import org.opencv.android.OpenCVLoader.initAsync
-import org.opencv.android.Utils
-import org.opencv.core.Core
+import org.opencv.android.Utils.matToBitmap
+import org.opencv.core.Core.bitwise_not
 import org.opencv.core.CvType
 import org.opencv.core.Mat
 import java.io.IOException
 
 /** アプリケーションのメインとなるアクティビティ。 */
-class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.addFlags(LayoutParams.FLAG_FULLSCREEN)
 
         setContentView(R.layout.activity_main)
 
-        camera_view.setCvCameraViewListener(this)
+        camera_view.setCvCameraViewListener(cameraListener)
 
         save_button.setOnClickListener { save() }
     }
@@ -35,8 +40,8 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     override fun onResume() {
         super.onResume()
 
-        if (!initAsync(OPENCV_VERSION_3_2_0, this, loaderCallback)) {
-            Toast.makeText(this, getString(R.string.loading_failed), Toast.LENGTH_LONG).show()
+        if (!initAsync(OpenCVLoader.OPENCV_VERSION_3_2_0, this, loaderCallback)) {
+            notice(R.string.loading_failed)
         }
     }
 
@@ -52,18 +57,12 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         camera_view.disableView()
     }
 
-    override fun onCameraViewStarted(width: Int, height: Int) {
-        camera = Mat(height, width, CvType.CV_8UC3)
-    }
-
-    override fun onCameraViewStopped() {
-        camera.release()
-    }
-
-    override fun onCameraFrame(frame: CvCameraViewFrame): Mat {
-        Core.bitwise_not(frame.rgba(), camera)
-
-        return camera
+    /**
+     * トーストでテキストを表示する。
+     * @param id 表示するテキストのリソースID。
+     */
+    private fun notice(id: Int) {
+        makeText(this, getString(id), Toast.LENGTH_LONG).show()
     }
 
     /**
@@ -71,11 +70,11 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
      */
     private fun save() {
         try {
-            save(takeBitmap(camera), directory, contentResolver)
+            savePicture(takeBitmap(camera), directory, contentResolver)
 
-            Toast.makeText(this, getString(R.string.saving_success), Toast.LENGTH_LONG).show()
+            notice(R.string.saving_success)
         } catch (e: IOException) {
-            Toast.makeText(this, getString(R.string.saving_failed), Toast.LENGTH_LONG).show()
+            notice(R.string.saving_failed)
         }
     }
 
@@ -89,6 +88,27 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         }
     }
 
+    /** カメラビューのイベントリスナ。 */
+    private val cameraListener = object : CvCameraViewListener2 {
+        override fun onCameraViewStarted(width: Int, height: Int) {
+            camera = Mat(height, width, CvType.CV_8UC3)
+        }
+
+        override fun onCameraViewStopped() {
+            camera.release()
+        }
+
+        override fun onCameraFrame(frame: CvCameraViewFrame): Mat {
+            if (negative_switch.isChecked()) {
+                bitwise_not(frame.rgba(), camera)
+            } else {
+                frame.rgba().copyTo(camera)
+            }
+
+            return camera
+        }
+    }
+
     /** カメラの画像。 */
     private lateinit var camera: Mat
 }
@@ -99,9 +119,9 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
  * @return 生成したBitmap。
  */
 private fun takeBitmap(frame: Mat): Bitmap {
-    val bitmap = Bitmap.createBitmap(frame.width(), frame.height(), Bitmap.Config.ARGB_8888)
+    val bitmap = createBitmap(frame.width(), frame.height(), Config.ARGB_8888)
 
-    Utils.matToBitmap(frame, bitmap)
+    matToBitmap(frame, bitmap)
 
     return bitmap
 }

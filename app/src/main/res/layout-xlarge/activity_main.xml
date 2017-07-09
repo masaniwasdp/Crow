@@ -20,15 +20,15 @@
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="64dp"
         android:clickable="true"
         res-auto:backgroundTint="@color/colorPrimaryDark"
         res-auto:fabSize="normal"
         res-auto:rippleColor="@color/colorAccent"
-        res-auto:srcCompat="@android:drawable/ic_menu_save"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        res-auto:srcCompat="@android:drawable/ic_menu_save" />
 
     <Switch
         android:id="@+id/negative_switch"
@@ -37,5 +37,5 @@
         android:checked="true"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/save_button"
-        android:layout_marginBottom="96dp" />
+        android:layout_marginBottom="164dp" />
 </RelativeLayout>
