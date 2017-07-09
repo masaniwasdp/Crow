@@ -65,9 +65,7 @@ class MainActivity : AppCompatActivity() {
         makeText(this, getString(id), Toast.LENGTH_LONG).show()
     }
 
-    /**
-     * ネガポジ反転した画像をストレージに保存する。
-     */
+    /** ネガポジ反転した画像をストレージに保存する。 */
     private fun save() {
         try {
             savePicture(takeBitmap(camera), directory, contentResolver)
