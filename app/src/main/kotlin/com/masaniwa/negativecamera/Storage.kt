@@ -8,16 +8,27 @@ import android.os.Environment.getExternalStorageDirectory
 import android.provider.MediaStore.Images.Media
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 /**
+ * ストレージに関する例外。
+ *
+ * @param message 例外メッセージ。
+ * @param cause 原因となった例外。
+ * @constructor 例外を作成する。
+ */
+class StorageException(message: String, cause: Throwable) : IOException(message, cause)
+
+/**
  * Bitmap画像をjpegでストレージに保存してコンテンツリゾルバに登録する。
- * @param  bitmap    Bitmap画像。
- * @param  directory 保存先ディレクトリ。
- * @param  resolver  コンテンツリゾルバ。
- * @throws java.io.IOException 画像を保存できなかった場合。
+ *
+ * @param bitmap Bitmap画像。
+ * @param directory 保存先ディレクトリ。
+ * @param resolver コンテンツリゾルバ。
+ * @throws StorageException 画像を保存できなかった場合。
  */
 fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
     val file = File(getExternalStorageDirectory().path + directory)
@@ -35,19 +46,25 @@ fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
 
 /**
  * Bitmap画像をjpegでストレージに保存する。
- * @param  bitmap Bitmap画像。
- * @param  path   保存先ファイルパス。
- * @throws java.io.IOException 画像を保存できなかった場合。
+ *
+ * @param bitmap Bitmap画像。
+ * @param path 保存先ファイルパス。
+ * @throws StorageException 画像を保存できなかった場合。
  */
 private fun saveBitmap(bitmap: Bitmap, path: String) {
-    FileOutputStream(path).use { bitmap.compress(CompressFormat.JPEG, quality, it) }
+    try {
+        FileOutputStream(path).use { bitmap.compress(CompressFormat.JPEG, quality, it) }
+    } catch (e: IOException) {
+        throw StorageException("Failed to save the image.", e)
+    }
 }
 
 /**
  * コンテンツリゾルバにファイル情報を登録する。
+ *
  * @param resolver コンテンツリゾルバ。
- * @param name     ファイルの名前。
- * @param path     ファイルパス。
+ * @param name ファイルの名前。
+ * @param path ファイルパス。
  */
 private fun saveIndex(resolver: ContentResolver, name: String, path: String) {
     val values = ContentValues().apply {

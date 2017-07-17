@@ -21,9 +21,12 @@ import org.opencv.android.Utils.matToBitmap
 import org.opencv.core.Core.bitwise_not
 import org.opencv.core.CvType
 import org.opencv.core.Mat
-import java.io.IOException
 
-/** アプリケーションのメインとなるアクティビティ。 */
+/**
+ * アプリケーションのメインとなるアクティビティ。
+ *
+ * @constructor アクティビティを作成する。
+ */
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * トーストでテキストを表示する。
+     *
      * @param id 表示するテキストのリソースID。
      */
     private fun notice(id: Int) {
@@ -71,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             savePicture(takeBitmap(camera), directory, contentResolver)
 
             notice(R.string.saving_success)
-        } catch (e: IOException) {
+        } catch (e: StorageException) {
             notice(R.string.saving_failed)
         }
     }
@@ -113,7 +117,8 @@ class MainActivity : AppCompatActivity() {
 
 /**
  * MatからBitmapを生成する。
- * @param  frame Bitmapの生成元となるMat。
+ *
+ * @param frame Bitmapの生成元となるMat。
  * @return 生成したBitmap。
  */
 private fun takeBitmap(frame: Mat): Bitmap {
