@@ -3,15 +3,15 @@ package com.masaniwa.negativecamera
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat
+import android.graphics.Bitmap.CompressFormat.JPEG
 import android.os.Environment.getExternalStorageDirectory
-import android.provider.MediaStore.Images.Media
+import android.provider.MediaStore.Images.Media.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
+import java.util.Locale.US
 
 /**
  * ストレージに関する例外。
@@ -33,14 +33,14 @@ class StorageException(message: String, cause: Throwable) : IOException(message,
 fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
     val file = File(getExternalStorageDirectory().path + directory)
 
-    if (!file.exists()) {
-        file.mkdir()
-    }
+    if (!file.exists()) file.mkdir()
 
-    val name = SimpleDateFormat(format, Locale.US).format(Date()) + extension
+    val name = SimpleDateFormat(format, US).format(Date()) + extension
+
     val path = file.absolutePath + slash + name
 
     saveBitmap(bitmap, path)
+
     saveIndex(resolver, name, path)
 }
 
@@ -53,7 +53,7 @@ fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
  */
 private fun saveBitmap(bitmap: Bitmap, path: String) {
     try {
-        FileOutputStream(path).use { bitmap.compress(CompressFormat.JPEG, quality, it) }
+        FileOutputStream(path).use { bitmap.compress(JPEG, quality, it) }
     } catch (e: IOException) {
         throw StorageException("Failed to save the image.", e)
     }
@@ -68,12 +68,12 @@ private fun saveBitmap(bitmap: Bitmap, path: String) {
  */
 private fun saveIndex(resolver: ContentResolver, name: String, path: String) {
     val values = ContentValues().apply {
-        put(Media.MIME_TYPE, type)
-        put(Media.TITLE, name)
+        put(MIME_TYPE, type)
+        put(TITLE, name)
         put(dataKey, path)
     }
 
-    resolver.insert(Media.EXTERNAL_CONTENT_URI, values)
+    resolver.insert(EXTERNAL_CONTENT_URI, values)
 }
 
 /** ファイルパス区切り文字。 */
