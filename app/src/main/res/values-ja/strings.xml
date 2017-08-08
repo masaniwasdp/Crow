@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ネガポジカメラ</string>
+    <string name="ok">OK</string>
     <string name="saving_success">画像を保存しました。</string>
-    <string name="saving_failed">画像の保存に失敗しました。</string>
-    <string name="loading_failed">OpenCVの読み込みに失敗しました。</string>
+    <string name="saving_failed">画像を保存できませんでした。</string>
+    <string name="camera_request">アプリを利用するには、権限「CAMERA」への許可が必要です。</string>
+    <string name="storage_request">画像を保存するには、権限「WRITE_EXTERNAL_STORAGE」への許可が必要です。</string>
 </resources>
