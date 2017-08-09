@@ -43,10 +43,10 @@ class AlertDialog() : DialogFragment() {
     }
 
     /** 表示する文字列のリソースID。 */
-    private var resId = 0
+    var resId = 0
 
     /** ボタンを押したときの動作。 */
-    private var onClick: OnClick? = null
+    var onClick: OnClick? = null
 }
 
 /**

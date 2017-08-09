@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
 
         camera_view.setCvCameraViewListener(this)
 
-        save_button.setOnClickListener { save() }
+        save_button.setOnClickListener { onButtonClick() }
 
         save_button.isEnabled = false
     }
@@ -95,6 +95,17 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         return camera
     }
 
+    /** 保存ボタンを押したときの動作。 */
+    private fun onButtonClick() {
+        when (checkSelfPermission(this, WRITE_EXTERNAL_STORAGE)) {
+            PERMISSION_GRANTED -> save()
+
+            else -> alert(fragmentManager, storage_request) {
+                requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), storageRequest)
+            }
+        }
+    }
+
     /**
      * トーストで通知する。
      *
@@ -106,18 +117,12 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     /** カメラの画像をストレージに保存する。 */
     private fun save() {
-        when (checkSelfPermission(this, WRITE_EXTERNAL_STORAGE)) {
-            PERMISSION_GRANTED -> try {
-                savePicture(camera.toBitmap(), directory, contentResolver)
+        try {
+            savePicture(camera.toBitmap(), directory, contentResolver)
 
-                notice(saving_success)
-            } catch (e: StorageException) {
-                alert(fragmentManager, saving_failed, null)
-            }
-
-            else -> alert(fragmentManager, storage_request) {
-                requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), storageRequest)
-            }
+            notice(saving_success)
+        } catch (e: StorageException) {
+            alert(fragmentManager, saving_failed, null)
         }
     }
 
