@@ -1,7 +1,7 @@
 NegativeCamera
 ===
 
-![NegativeCamera](https://github.com/masaniwasdp/Screenshots/blob/master/NegativeCamera.png)
+![NegativeCamera](https://masaniwasdp.github.io/NegativeCamera/Screenshot.png)
 
 ネガポジ反転しているAndroidカメラアプリです。
 
