@@ -27,9 +27,9 @@ import org.opencv.core.CvType.CV_8UC3
 import org.opencv.core.Mat
 
 /**
- * アプリケーションのメインとなるアクティビティ。
+ * Ĉefa Activity de apliko.
  *
- * @constructor アクティビティを作成する。
+ * @constructor Kreas activity.
  */
 class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         return camera
     }
 
-    /** 保存ボタンを押したときの動作。 */
+    /** Konduto kiam la butono por savi bildojn estas puŝita. */
     private fun onButtonClick() {
         when (checkSelfPermission(this, WRITE_EXTERNAL_STORAGE)) {
             PERMISSION_GRANTED -> save()
@@ -107,15 +107,15 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     /**
-     * トーストで通知する。
+     * Avizas per toast.
      *
-     * @param resId 表示する文字列のリソースID。
+     * @param resId ID de teksto kiu estos montrita.
      */
     private fun notice(resId: Int) {
         makeText(this, getString(resId), LENGTH_SHORT).show()
     }
 
-    /** カメラの画像をストレージに保存する。 */
+    /** Savas bildon de fotilo al stokado. */
     private fun save() {
         try {
             savePicture(camera.toBitmap(), directory, contentResolver)
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         }
     }
 
-    /** OpenCVのライブラリが読み込まれたときのコールバック関数。 */
+    /** Callback funkcio kiu estos invokita kiam OpenCV estas ŝarĝita. */
     private val loaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
             when (status) {
@@ -141,15 +141,15 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         }
     }
 
-    /** カメラの画像。 */
+    /** Bildo de fotilo. */
     private lateinit var camera: Mat
 }
 
 /**
- * 自身をBitmapに変換する。
+ * Konvertas sin al bitmap-bildo.
  *
- * @receiver 変換元のMat。
- * @return 変換したBitmap。
+ * @receiver Mat-bildo kiu estos konvertita.
+ * @return Konvertita bitmap-bildo.
  */
 private fun Mat.toBitmap(): Bitmap {
     check(width() > 0)
@@ -162,11 +162,11 @@ private fun Mat.toBitmap(): Bitmap {
     return bitmap
 }
 
-/** カメラの権限をリクエストするID。 */
+/** La ID por peti aûtoritaton de fotilo. */
 private const val cameraRequest = 0
 
-/** ストレージの権限をリクエストするID。 */
+/** La ID por peti aûtoritaton de stokado. */
 private const val storageRequest = 1
 
-/** 画像を保存するディレクトリ。 */
+/** La bildo dosierujo. */
 private const val directory = "/NegativeCamera/"

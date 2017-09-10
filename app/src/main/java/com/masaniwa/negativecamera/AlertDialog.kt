@@ -7,20 +7,20 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.masaniwa.negativecamera.R.string.ok
 
-/** ボタンを押したときの動作の型。 */
+/** Konduto kiam la butono estas puŝita. */
 typealias OnClick = () -> Unit
 
 /**
- * ボタンを一つ持つアラートダイアログ。
+ * Dialogo havanta unu butonon.
  *
- * @constructor ダイアログを生成する。
+ * @constructor Kreas dialogon.
  */
 class AlertDialog() : DialogFragment() {
     /**
-     * 表示する文字列とボタンを押したときの動作を与えてダイアログを生成する。
+     * Kreas dialogon kun teksto kiu estos montrita kaj konduto kiam la butono estas puŝita.
      *
-     * @param resId 表示する文字列のリソースID。
-     * @param onClick ボタンを押したときの動作。
+     * @param resId ID de teksto kiu estos montrita.
+     * @param onClick Konduto kiam la butono estas puŝita.
      */
     constructor(resId: Int, onClick: OnClick?) : this() {
         this.resId = resId
@@ -42,23 +42,23 @@ class AlertDialog() : DialogFragment() {
         dismiss()
     }
 
-    /** 表示する文字列のリソースID。 */
+    /** ID de teksto kiu estos montrita. */
     var resId = 0
 
-    /** ボタンを押したときの動作。 */
+    /** Konduto kiam la butono estas puŝita. */
     var onClick: OnClick? = null
 }
 
 /**
- * アラートダイアログを表示する。
+ * Vidigas dialogon havantan unu butonon.
  *
- * @param manager フラグメントマネージャ。
- * @param resId 表示する文字列のリソースID。
- * @param onClick ボタンを押したときの動作。
+ * @param manager Fragmenta direktisto.
+ * @param resId ID de teksto kiu estos montrita.
+ * @param onClick Konduto kiam la butono eatas puŝita.
  */
 fun alert(manager: FragmentManager, resId: Int, onClick: OnClick?) {
     AlertDialog(resId, onClick).show(manager, alertTag)
 }
 
-/** アラートダイアログのタグ。 */
+/** La etikedo de dialogoj. */
 private const val alertTag = "Alert"

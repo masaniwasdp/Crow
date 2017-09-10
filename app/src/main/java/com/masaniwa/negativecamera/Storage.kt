@@ -14,21 +14,21 @@ import java.util.*
 import java.util.Locale.US
 
 /**
- * ストレージに関する例外。
+ * Escepto de stokado.
  *
- * @param message 例外メッセージ。
- * @param cause 原因となった例外。
- * @constructor 例外を作成する。
+ * @param message Mesaĝo.
+ * @param cause Kaûzo de escepto.
+ * @constructor Kreas escepton.
  */
 class StorageException(message: String, cause: Throwable?) : IOException(message, cause)
 
 /**
- * Bitmap画像をjpegでストレージに保存してコンテンツリゾルバに登録する。
+ * Savas bitmap-bildon kiel jpeg-bildo en stokado kaj registras ĝin al content-resolver.
  *
- * @param bitmap Bitmap画像。
- * @param directory 保存先ディレクトリ。
- * @param resolver コンテンツリゾルバ。
- * @throws StorageException 画像を保存できなかった場合。
+ * @param bitmap Bitmap-bildo kiu estos savita.
+ * @param directory Bildo dosierujo.
+ * @param resolver Content-resolver.
+ * @throws StorageException Se malsukcesis savi la bildon.
  */
 fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
     require(directory != "")
@@ -49,11 +49,11 @@ fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
 }
 
 /**
- * Bitmap画像をjpegでストレージに保存する。
+ * Savas bitmap-bildon kiel jpeg-bildo en stokado.
  *
- * @param bitmap Bitmap画像。
- * @param path 保存先ファイルパス。
- * @throws StorageException 画像を保存できなかった場合。
+ * @param bitmap Bitmap-bildo kiu estos savita.
+ * @param path Vojo por savi bildon.
+ * @throws StorageException Se malsukcesis savi la bildon.
  */
 private fun saveBitmap(bitmap: Bitmap, path: String) {
     require(path != "")
@@ -66,11 +66,11 @@ private fun saveBitmap(bitmap: Bitmap, path: String) {
 }
 
 /**
- * コンテンツリゾルバにファイル情報を登録する。
+ * Registras dosieran informon al content-resolver.
  *
- * @param resolver コンテンツリゾルバ。
- * @param name ファイルの名前。
- * @param path ファイルパス。
+ * @param resolver Content-resolver.
+ * @param name Nomo kiu estos registrita.
+ * @param path Vojo de dosiero.
  */
 private fun saveIndex(resolver: ContentResolver, name: String, path: String) {
     require(name != "")
@@ -85,20 +85,20 @@ private fun saveIndex(resolver: ContentResolver, name: String, path: String) {
     resolver.insert(EXTERNAL_CONTENT_URI, values)
 }
 
-/** ファイルパス区切り文字。 */
+/** La vojo apartigilo. */
 private const val slash = "/"
 
-/** ファイル拡張子。 */
+/** La dosiero etendo. */
 private const val extension = ".jpg"
 
-/** ファイルのMIMEタイプ。 */
+/** La MIME-tipo de bildoj dosieroj. */
 private const val type = "image/jpeg"
 
-/** コンテンツURIのデータを示すキー。 */
+/** La ŝlosilo indikanta datumojn de content-URI. */
 private const val dataKey = "_data"
 
-/** 保存する画像のファイル名に付加する日時のフォーマット。 */
+/** La formato de dato kaj tempo de dosiernomoj kiu estos savita. */
 private const val format = "yyyyMMdd.hhmmss"
 
-/** 画像を保存するときの品質。 */
+/** La kvalito de savi bildojn. */
 private const val quality = 95

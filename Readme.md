@@ -3,17 +3,17 @@ NegativeCamera
 
 ![NegativeCamera](https://masaniwasdp.github.io/NegativeCamera/Screenshot.png)
 
-ネガポジ反転しているAndroidカメラアプリです。
+La bito-reverso fotilo.
 
-## 概要
-Androidデバイスのカメラ入力をリアルタイムにネガポジ反転して表示するアプリケーションです。
-また、その画像を内部ストレージへjpeg画像として保存できます。
+## Priskribo
+La apliko bito-renversas fotilon bildon kaj montras tion en reala tempo.
+Kaj la apliko povas savi tiun bildon kiel jpeg-bildo en interna stokado.
 
-## 依存
+## Dependeco
 + [OpenCV3.2](http://opencv.org)
 
-## ライセンス
-[MITライセンス](https://github.com/masaniwasdp/NegativeCamera/blob/master/Licence.txt)が適用されます。
+## Permesiloj
++ [MIT](https://github.com/masaniwasdp/NegativeCamera/blob/master/Licence.txt)
 
-## 作者
-+ [masaniwa](https://github.com/masaniwasdp)
+## Aûtoroj
++ masaniwa
