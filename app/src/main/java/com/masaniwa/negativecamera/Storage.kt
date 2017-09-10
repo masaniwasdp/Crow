@@ -28,7 +28,7 @@ class StorageException(message: String, cause: Throwable?) : IOException(message
  * @param bitmap Bitmap-bildo kiu estos savita.
  * @param directory Bildo dosierujo.
  * @param resolver Content-resolver.
- * @throws StorageException Se malsukcesis savi la bildon.
+ * @throws StorageException Kiam malsukcesis savi la bildon.
  */
 fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
     require(directory != "")
@@ -53,7 +53,7 @@ fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
  *
  * @param bitmap Bitmap-bildo kiu estos savita.
  * @param path Vojo por savi bildon.
- * @throws StorageException Se malsukcesis savi la bildon.
+ * @throws StorageException Kiam malsukcesis savi la bildon.
  */
 private fun saveBitmap(bitmap: Bitmap, path: String) {
     require(path != "")
