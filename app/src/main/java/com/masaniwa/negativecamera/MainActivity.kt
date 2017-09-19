@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
             savePicture(camera.toBitmap(), directory, contentResolver)
 
             notice(saving_success)
-        } catch (e: StorageException) {
+        } catch (e: Exception) {
             alert(fragmentManager, saving_failed, null)
         }
     }
@@ -145,6 +145,15 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var camera: Mat
 }
 
+/** La ID por peti aûtoritaton de fotilo. */
+private const val cameraRequest = 0
+
+/** La ID por peti aûtoritaton de stokado. */
+private const val storageRequest = 1
+
+/** La bildo dosierujo. */
+private const val directory = "/NegativeCamera/"
+
 /**
  * Konvertas sin al bitmap-bildo.
  *
@@ -161,12 +170,3 @@ private fun Mat.toBitmap(): Bitmap {
 
     return bitmap
 }
-
-/** La ID por peti aûtoritaton de fotilo. */
-private const val cameraRequest = 0
-
-/** La ID por peti aûtoritaton de stokado. */
-private const val storageRequest = 1
-
-/** La bildo dosierujo. */
-private const val directory = "/NegativeCamera/"
