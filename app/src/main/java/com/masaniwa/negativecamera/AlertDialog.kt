@@ -30,7 +30,8 @@ class AlertDialog() : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         isCancelable = false
 
-        return AlertDialog.Builder(activity)
+        return AlertDialog
+                .Builder(activity)
                 .setMessage(getString(resId))
                 .setPositiveButton(ok) { _, _ -> onClick?.invoke() }
                 .create()

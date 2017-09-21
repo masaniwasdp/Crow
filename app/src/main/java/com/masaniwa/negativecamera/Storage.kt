@@ -30,7 +30,7 @@ class StorageException(message: String) : Exception(message)
  * @throws java.io.IOException Kiam malsukcesis savi la bildon.
  */
 fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
-    require(directory != "")
+    require(directory != "") { "The directory must not be empty." }
 
     val file = File(getExternalStorageDirectory().path + directory)
 

@@ -75,8 +75,8 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     override fun onCameraViewStarted(width: Int, height: Int) {
-        require(width > 0)
-        require(height > 0)
+        require(width > 0) { "The width must be more than 0."}
+        require(height > 0) { "The height must be more than 0."}
 
         camera = Mat(height, width, CV_8UC3)
     }
@@ -161,8 +161,8 @@ private const val directory = "/NegativeCamera/"
  * @return Konvertita bitmap-bildo.
  */
 private fun Mat.toBitmap(): Bitmap {
-    check(width() > 0)
-    check(height() > 0)
+    check(width() > 0) { "The width must be more than 0." }
+    check(height() > 0) { "The height must be more than 0." }
 
     val bitmap = createBitmap(width(), height(), ARGB_8888)
 
