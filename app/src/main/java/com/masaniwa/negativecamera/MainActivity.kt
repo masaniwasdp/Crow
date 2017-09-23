@@ -27,9 +27,9 @@ import org.opencv.core.CvType.CV_8UC3
 import org.opencv.core.Mat
 
 /**
- * Ĉefa Activity de apliko.
+ * Ĉefa activeco de apliko.
  *
- * @constructor Kreas activity.
+ * @constructor Kreas activeco.
  */
 class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,10 +145,10 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var camera: Mat
 }
 
-/** La ID por peti aûtoritaton de fotilo. */
+/** La ID por peti aŭtoritaton de fotilo. */
 private const val cameraRequest = 0
 
-/** La ID por peti aûtoritaton de stokado. */
+/** La ID por peti aŭtoritaton de stokado. */
 private const val storageRequest = 1
 
 /** La bildo dosierujo. */

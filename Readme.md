@@ -15,5 +15,5 @@ Kaj la apliko povas savi tiun bildon kiel jpeg-bildo en interna stokado.
 ## Permesiloj
 + [MIT](https://github.com/masaniwasdp/NegativeCamera/blob/master/Licence.txt)
 
-## Aûtoroj
+## Aŭtoroj
 + masaniwa
