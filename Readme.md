@@ -13,7 +13,6 @@ Kaj la apliko povas savi tiun bildon kiel jpeg-bildo en interna stokado.
 + [OpenCV3.2](http://opencv.org)
 
 ## Permesiloj
-+ [MIT](https://github.com/masaniwasdp/NegativeCamera/blob/master/Licence.txt)
+© 2017, masaniwa
 
-## Aŭtoroj
-+ masaniwa
+La programaro estas licencita sub la [MIT](https://github.com/masaniwasdp/NegativeCamera/blob/master/Licence.txt).
