@@ -15,4 +15,4 @@ Kaj la apliko povas savi tiun bildon kiel jpeg-bildo en interna stokado.
 ## Permesilo
 © 2017, masaniwa
 
-La programaro estas licencita sub la [MIT](https://github.com/masaniwasdp/NegativeCamera/blob/master/Licence.txt).
+La programaro estas licencita sub la [MIT](https://github.com/masaniwasdp/NegativeCamera/blob/master/LICENCE).
