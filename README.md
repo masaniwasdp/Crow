@@ -1,6 +1,8 @@
 NegativeCamera
 ===
 
+[![Build Status](https://travis-ci.org/masaniwasdp/NegativeCamera.svg?branch=master)](https://travis-ci.org/masaniwasdp/NegativeCamera)
+
 ![NegativeCamera](https://masaniwasdp.github.io/NegativeCamera/Screenshot.png)
 
 La bito-reverso fotilo.
