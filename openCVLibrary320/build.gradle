@@ -7,11 +7,6 @@ android {
         minSdkVersion 23
         targetSdkVersion 26
     }
-    buildTypes {
-        release {
-            minifyEnabled true
-        }
-    }
     lintOptions {
         abortOnError false
     }
