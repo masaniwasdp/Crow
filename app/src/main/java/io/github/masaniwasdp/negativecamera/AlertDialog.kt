@@ -1,11 +1,11 @@
-package com.masaniwa.negativecamera
+package io.github.masaniwasdp.negativecamera
 
 import android.app.Dialog
 import android.app.DialogFragment
 import android.app.FragmentManager
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import com.masaniwa.negativecamera.R.string.ok
+import io.github.masaniwasdp.negativecamera.R.string.ok
 
 /** Konduto kiam la butono estas puŝita. */
 typealias OnClick = () -> Unit

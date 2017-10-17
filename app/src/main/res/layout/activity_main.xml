@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:res-auto="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="com.masaniwa.negativecamera.MainActivity">
+    tools:context="io.github.masaniwasdp.negativecamera.MainActivity">
 
     <org.opencv.android.JavaCameraView
         android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
-        res-auto:camera_id="any"/>
+        res-auto:camera_id="any" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
         res-auto:backgroundTint="@color/colorPrimaryDark"
         res-auto:fabSize="normal"
         res-auto:rippleColor="@color/colorAccent"
-        res-auto:srcCompat="@android:drawable/ic_menu_save"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        res-auto:srcCompat="@android:drawable/ic_menu_save" />
 
     <Switch
         android:id="@+id/negative_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"
-        android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/save_button"
-        android:layout_marginBottom="96dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="96dp"
+        android:checked="true" />
 </RelativeLayout>

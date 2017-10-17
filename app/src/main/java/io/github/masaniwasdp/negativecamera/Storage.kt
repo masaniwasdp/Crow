@@ -1,4 +1,4 @@
-package com.masaniwa.negativecamera
+package io.github.masaniwasdp.negativecamera
 
 import android.content.ContentResolver
 import android.content.ContentValues

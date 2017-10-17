@@ -1,4 +1,4 @@
-package com.masaniwa.negativecamera
+package io.github.masaniwasdp.negativecamera
 
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
-import com.masaniwa.negativecamera.R.string.*
+import io.github.masaniwasdp.negativecamera.R.string.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
@@ -75,8 +75,8 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     override fun onCameraViewStarted(width: Int, height: Int) {
-        require(width > 0) { "The width must be more than 0."}
-        require(height > 0) { "The height must be more than 0."}
+        require(width > 0) { "The width must be more than 0." }
+        require(height > 0) { "The height must be more than 0." }
 
         camera = Mat(height, width, CV_8UC3)
     }
