@@ -15,4 +15,3 @@ Kaj la apliko povas savi tiun bildon kiel jpeg-bildo en interna stokado.
 © 2017, masaniwa
 
 La programaro estas licencita sub la [MIT](https://github.com/masaniwasdp/NegativeCamera/blob/master/LICENCE).
-Biblioteko openCVLibrary320 estas licencita sub la [3-clause BSD](https://github.com/masaniwasdp/NegativeCamera/blob/master/openCVLibrary320/LICENSE).
