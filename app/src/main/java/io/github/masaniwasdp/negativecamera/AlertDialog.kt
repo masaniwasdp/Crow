@@ -13,20 +13,11 @@ typealias OnClick = () -> Unit
 /**
  * Dialogo havanta unu butonon.
  *
- * @constructor Kreas dialogon.
+ * @constructor Kreas dialogon kun teksto kiu estos montrita kaj konduto kiam la butono estas puŝita.
+ * @param resId ID de teksto kiu estos montrita.
+ * @param onClick Konduto kiam la butono estas puŝita.
  */
-class AlertDialog() : DialogFragment() {
-    /**
-     * Kreas dialogon kun teksto kiu estos montrita kaj konduto kiam la butono estas puŝita.
-     *
-     * @param resId ID de teksto kiu estos montrita.
-     * @param onClick Konduto kiam la butono estas puŝita.
-     */
-    constructor(resId: Int, onClick: OnClick?) : this() {
-        this.resId = resId
-        this.onClick = onClick
-    }
-
+class AlertDialog(private val resId: Int = 0, private val onClick: OnClick? = null) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         isCancelable = false
 
@@ -42,12 +33,6 @@ class AlertDialog() : DialogFragment() {
 
         dismiss()
     }
-
-    /** ID de teksto kiu estos montrita. */
-    var resId = 0
-
-    /** Konduto kiam la butono estas puŝita. */
-    var onClick: OnClick? = null
 }
 
 /**
@@ -58,8 +43,8 @@ class AlertDialog() : DialogFragment() {
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
 fun alert(manager: FragmentManager, resId: Int, onClick: OnClick?) {
-    AlertDialog(resId, onClick).show(manager, alertTag)
+    AlertDialog(resId, onClick).show(manager, ALERT_TAG)
 }
 
 /** La etikedo de dialogoj. */
-private const val alertTag = "Alert"
+private const val ALERT_TAG = "Alert"

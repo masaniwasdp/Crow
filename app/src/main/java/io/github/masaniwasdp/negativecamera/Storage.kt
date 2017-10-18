@@ -38,35 +38,32 @@ fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
         if (!file.mkdir()) throw StorageException("Failed to make the directory.")
     }
 
-    val name = SimpleDateFormat(format, US).format(Date()) + extension
+    val name = SimpleDateFormat(FORMAT, US).format(Date()) + EXTENSION
 
-    val path = file.absolutePath + slash + name
+    val path = file.absolutePath + "/" + name
 
-    FileOutputStream(path).use { bitmap.compress(JPEG, quality, it) }
+    FileOutputStream(path).use { bitmap.compress(JPEG, QUALITY, it) }
 
     val values = ContentValues().apply {
-        put(MIME_TYPE, type)
+        put(MIME_TYPE, TYPE)
         put(TITLE, name)
-        put(dataKey, path)
+        put(DATA_KEY, path)
     }
 
     resolver.insert(EXTERNAL_CONTENT_URI, values)
 }
 
-/** La vojo apartigilo. */
-private const val slash = "/"
-
 /** La dosiero etendo. */
-private const val extension = ".jpg"
+private const val EXTENSION = ".jpg"
 
 /** La MIME-tipo de bildoj dosieroj. */
-private const val type = "image/jpeg"
+private const val TYPE = "image/jpeg"
 
 /** La ŝlosilo indikanta datumojn de content-URI. */
-private const val dataKey = "_data"
+private const val DATA_KEY = "_data"
 
 /** La formato de dato kaj tempo de dosiernomoj kiu estos savita. */
-private const val format = "yyyyMMdd.hhmmss"
+private const val FORMAT = "yyyyMMdd_hhmmss"
 
 /** La kvalito de savi bildojn. */
-private const val quality = 95
+private const val QUALITY = 95

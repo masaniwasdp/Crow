@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
             PERMISSION_GRANTED -> initAsync(OPENCV_VERSION_3_2_0, this, loaderCallback)
 
             else -> alert(fragmentManager, camera_request) {
-                requestPermissions(this, arrayOf(CAMERA), cameraRequest)
+                requestPermissions(this, arrayOf(CAMERA), REQUEST_CAMERA)
             }
         }
     }
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
             PERMISSION_GRANTED -> save()
 
             else -> alert(fragmentManager, storage_request) {
-                requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), storageRequest)
+                requestPermissions(this, arrayOf(WRITE_EXTERNAL_STORAGE), REQUEST_STORAGE)
             }
         }
     }
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     /** Savas bildon de fotilo al stokado. */
     private fun save() {
         try {
-            savePicture(camera.toBitmap(), directory, contentResolver)
+            savePicture(camera.toBitmap(), DIRECTORY, contentResolver)
 
             notice(saving_success)
         } catch (e: Exception) {
@@ -146,13 +146,13 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
 }
 
 /** La ID por peti aŭtoritaton de fotilo. */
-private const val cameraRequest = 0
+private const val REQUEST_CAMERA = 0
 
 /** La ID por peti aŭtoritaton de stokado. */
-private const val storageRequest = 1
+private const val REQUEST_STORAGE = 1
 
 /** La bildo dosierujo. */
-private const val directory = "/NegativeCamera/"
+private const val DIRECTORY = "/NegativeCamera/"
 
 /**
  * Konvertas sin al bitmap-bildo.
