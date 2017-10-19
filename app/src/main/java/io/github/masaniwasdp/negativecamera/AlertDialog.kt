@@ -5,7 +5,6 @@ import android.app.DialogFragment
 import android.app.FragmentManager
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import io.github.masaniwasdp.negativecamera.R.string.ok
 
 /** Konduto kiam la butono estas puŝita. */
 typealias OnClick = () -> Unit
@@ -24,7 +23,7 @@ class AlertDialog(private val resId: Int = 0, private val onClick: OnClick? = nu
         return AlertDialog
                 .Builder(activity)
                 .setMessage(getString(resId))
-                .setPositiveButton(ok) { _, _ -> onClick?.invoke() }
+                .setPositiveButton(R.string.ok) { _, _ -> onClick?.invoke() }
                 .create()
     }
 
@@ -42,7 +41,7 @@ class AlertDialog(private val resId: Int = 0, private val onClick: OnClick? = nu
  * @param resId ID de teksto kiu estos montrita.
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
-fun alert(manager: FragmentManager, resId: Int, onClick: OnClick?) {
+fun alert(manager: FragmentManager, resId: Int, onClick: OnClick? = null) {
     AlertDialog(resId, onClick).show(manager, ALERT_TAG)
 }
 
