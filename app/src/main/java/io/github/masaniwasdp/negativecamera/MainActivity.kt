@@ -106,10 +106,10 @@ class MainActivity : AppCompatActivity() {
     private val camera = Camera()
 }
 
-/** La ID por peti aŭtoritaton de fotilo. */
+/** La ID por peti permeson de fotilo. */
 private const val REQUEST_CAMERA = 0
 
-/** La ID por peti aŭtoritaton de stokado. */
+/** La ID por peti permeson de stokado. */
 private const val REQUEST_STORAGE = 1
 
 /** La bildo dosierujo. */

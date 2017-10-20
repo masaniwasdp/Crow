@@ -28,13 +28,4 @@
         res-auto:fabSize="normal"
         res-auto:rippleColor="@color/colorAccent"
         res-auto:srcCompat="@android:drawable/ic_menu_save" />
-
-    <Switch
-        android:id="@+id/negative_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/save_button"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="164dp"
-        android:checked="true" />
 </RelativeLayout>
