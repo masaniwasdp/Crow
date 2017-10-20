@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.negativecamera
+package io.github.masaniwasdp.crow
 
 import android.Manifest
 import android.content.Context
@@ -113,7 +113,7 @@ private const val REQUEST_CAMERA = 0
 private const val REQUEST_STORAGE = 1
 
 /** La bildo dosierujo. */
-private const val DIRECTORY = "/NegativeCamera/"
+private const val DIRECTORY = "/Crow/"
 
 /**
  * Montras tekston per toast.

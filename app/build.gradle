@@ -6,7 +6,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "io.github.masaniwasdp.negativecamera"
+        applicationId "io.github.masaniwasdp.crow"
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 11

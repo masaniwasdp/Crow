@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.negativecamera
+package io.github.masaniwasdp.crow
 
 import android.app.Dialog
 import android.app.DialogFragment
