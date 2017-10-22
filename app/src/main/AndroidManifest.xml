@@ -15,7 +15,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name="io.github.masaniwasdp.crow.MainActivity"
+            android:name="io.github.masaniwasdp.crow.app.Activity"
             android:screenOrientation="landscape">
 
             <intent-filter>
