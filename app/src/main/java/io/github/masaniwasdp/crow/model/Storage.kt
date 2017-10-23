@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.lib
+package io.github.masaniwasdp.crow.model
 
 import android.content.ContentResolver
 import android.content.ContentValues

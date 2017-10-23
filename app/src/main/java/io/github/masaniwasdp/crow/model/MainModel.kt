@@ -1,15 +1,12 @@
-package io.github.masaniwasdp.crow.app
+package io.github.masaniwasdp.crow.model
 
 import android.content.ContentResolver
 import io.github.masaniwasdp.crow.R.string.saving_failed
 import io.github.masaniwasdp.crow.R.string.saving_success
-import io.github.masaniwasdp.crow.app.CameraType.*
-import io.github.masaniwasdp.crow.lib.pickChannel
-import io.github.masaniwasdp.crow.lib.save
-import io.github.masaniwasdp.crow.lib.toBitmap
+import io.github.masaniwasdp.crow.model.CameraType.*
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.core.Core.bitwise_not
-import org.opencv.core.CvType
+import org.opencv.core.CvType.CV_8UC3
 import org.opencv.core.Mat
 
 typealias Notifier = (resId: Int) -> Unit
@@ -23,14 +20,14 @@ enum class CameraType {
     Blue
 }
 
-class Model(private val notifier: Notifier) {
+class MainModel(private val notifier: Notifier) {
     fun initializeFrame(width: Int, height: Int) {
         require(width > 0) { "The width must be more than 0." }
         require(height > 0) { "The height must be more than 0." }
 
         frame?.release()
 
-        frame = Mat(height, width, CvType.CV_8UC3)
+        frame = Mat(height, width, CV_8UC3)
     }
 
     fun releaseFrame() {
@@ -67,7 +64,7 @@ class Model(private val notifier: Notifier) {
         }
     }
 
-    var type = Blue
+    var type = Normal
 
     var frame: Mat? = null
         private set
