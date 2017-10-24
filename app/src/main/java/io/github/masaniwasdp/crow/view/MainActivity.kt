@@ -22,7 +22,7 @@ import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
 import org.opencv.android.LoaderCallbackInterface
-import org.opencv.android.OpenCVLoader.OPENCV_VERSION_3_1_0
+import org.opencv.android.OpenCVLoader.OPENCV_VERSION_3_3_0
 import org.opencv.android.OpenCVLoader.initAsync
 import org.opencv.core.Mat
 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         when (checkSelfPermission(this, CAMERA)) {
-            PERMISSION_GRANTED -> initAsync(OPENCV_VERSION_3_1_0, this, loaderCallback)
+            PERMISSION_GRANTED -> initAsync(OPENCV_VERSION_3_3_0, this, loaderCallback)
 
             else -> fragmentManager.alert(camera_request) {
                 requestPermissions(this, arrayOf(CAMERA), REQUEST_CAMERA)

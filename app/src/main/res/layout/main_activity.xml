@@ -38,7 +38,7 @@
         android:layout_marginBottom="80dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
-        res-auto:backgroundTint="@color/colorPrimary"
+        res-auto:backgroundTint="@color/colorPrimaryDark"
         res-auto:fabSize="normal"
         res-auto:rippleColor="@color/colorAccent"
         res-auto:srcCompat="@android:drawable/ic_menu_manage" />
