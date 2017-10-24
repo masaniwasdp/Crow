@@ -91,8 +91,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /** Aŭskultanto de fotila vido. */
     private val cameraViewListener = object : CvCameraViewListener2 {
         override fun onCameraViewStarted(width: Int, height: Int) {
+            assert(width > 0)
+            assert(height > 0)
+
             model.initializeFrame(width, height)
         }
 
@@ -111,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /** Aŭskultanto de konservi butono. */
     private val saveButtonListener = OnClickListener {
         when (checkSelfPermission(this, WRITE_EXTERNAL_STORAGE)) {
             PERMISSION_GRANTED -> model.saveFrame(contentResolver)
@@ -121,6 +126,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /** Aŭskultanto de butono por elekti efektojn. */
     private val selectButtonListener = OnClickListener {
         fragmentManager.select(camera_types) { model.type = values()[it] }
     }

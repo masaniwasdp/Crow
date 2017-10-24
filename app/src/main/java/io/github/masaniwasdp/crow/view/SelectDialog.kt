@@ -6,8 +6,16 @@ import android.app.FragmentManager
 import android.os.Bundle
 import android.support.v7.app.AlertDialog.Builder
 
+/** La konduto kiam elemento estas elektita. */
 typealias OnSelect = (which: Int) -> Unit
 
+/**
+ * Dialogo por elekti elementojn.
+ *
+ * @constructor Kreas dialogon.
+ * @property resId ID de listo havanta elementojn kiu estos elektita.
+ * @property onSelect Konduto kiam elemento estas elektita.
+ */
 class SelectDialog(private val resId: Int = 0, private val onSelect: OnSelect = {}) : DialogFragment() {
     init {
         require(resId > 0) { "The resId must be more than 0." }
@@ -26,10 +34,18 @@ class SelectDialog(private val resId: Int = 0, private val onSelect: OnSelect = 
     }
 }
 
+/**
+ * Vidigas dialogon por elekti elementojn.
+ *
+ * @receiver Fragmenta direktisto.
+ * @param resId ID de listo havanta elementojn kiu estos elektita.
+ * @param onSelect Konduto kiam elemento estas elektita.
+ */
 fun FragmentManager.select(resId: Int, onSelect: OnSelect) {
     require(resId > 0) { "The resId must be more than 0." }
 
     SelectDialog(resId, onSelect).show(this, SELECT_TAG)
 }
 
+/** La etikedo de dialogoj. */
 private const val SELECT_TAG = "Select"
