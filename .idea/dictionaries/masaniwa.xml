@@ -15,6 +15,7 @@
       <w>butonon</w>
       <w>dato</w>
       <w>datumojn</w>
+      <w>destino</w>
       <w>dialogo</w>
       <w>dialogoj</w>
       <w>dialogon</w>
@@ -25,6 +26,8 @@
       <w>dosierujo</w>
       <w>dosierujon</w>
       <w>efektojn</w>
+      <w>elektas</w>
+      <w>elektata</w>
       <w>elekti</w>
       <w>elektita</w>
       <w>elemento</w>
@@ -49,6 +52,8 @@
       <w>indikanta</w>
       <w>interna</w>
       <w>invokita</w>
+      <w>kanalo</w>
+      <w>kanalon</w>
       <w>kiam</w>
       <w>konduto</w>
       <w>konservi</w>
@@ -66,6 +71,7 @@
       <w>montras</w>
       <w>montrita</w>
       <w>necese</w>
+      <w>nombro</w>
       <w>permesilo</w>
       <w>permesiron</w>
       <w>permeson</w>
@@ -82,6 +88,7 @@
       <w>savas</w>
       <w>savi</w>
       <w>savita</w>
+      <w>specifitan</w>
       <w>stokado</w>
       <w>teksto</w>
       <w>tekston</w>
