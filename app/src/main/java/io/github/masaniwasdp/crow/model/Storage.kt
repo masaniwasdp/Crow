@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.negativecamera
+package io.github.masaniwasdp.crow.model
 
 import android.content.ContentResolver
 import android.content.ContentValues
@@ -15,8 +15,8 @@ import java.util.Locale.US
 /**
  * Escepto de stokado.
  *
- * @param message Mesaĝo.
  * @constructor Kreas escepton.
+ * @param message Mesaĝo.
  */
 class StorageException(message: String) : Exception(message)
 
@@ -29,14 +29,12 @@ class StorageException(message: String) : Exception(message)
  * @throws StorageException Kiam malsukcesis fari la dosierujon.
  * @throws java.io.IOException Kiam malsukcesis savi la bildon.
  */
-fun savePicture(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
+fun save(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
     require(directory != "") { "The directory must not be empty." }
 
     val file = File(getExternalStorageDirectory().path + directory)
 
-    if (!file.exists()) {
-        if (!file.mkdir()) throw StorageException("Failed to make the directory.")
-    }
+    if (!file.exists() && !file.mkdir()) throw StorageException("Failed to make the directory.")
 
     val name = SimpleDateFormat(FORMAT, US).format(Date()) + EXTENSION
 

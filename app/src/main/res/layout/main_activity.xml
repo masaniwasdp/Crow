@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:res-auto="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/main_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="io.github.masaniwasdp.negativecamera.MainActivity">
+    tools:context=".view.MainActivity">
 
     <org.opencv.android.JavaCameraView
         android:id="@+id/camera_view"
@@ -21,20 +21,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="64dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         res-auto:backgroundTint="@color/colorPrimaryDark"
         res-auto:fabSize="normal"
         res-auto:rippleColor="@color/colorAccent"
         res-auto:srcCompat="@android:drawable/ic_menu_save" />
 
-    <Switch
-        android:id="@+id/negative_switch"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/select_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/save_button"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="164dp"
-        android:checked="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        res-auto:backgroundTint="@color/colorPrimaryDark"
+        res-auto:fabSize="normal"
+        res-auto:rippleColor="@color/colorAccent"
+        res-auto:srcCompat="@android:drawable/ic_menu_manage" />
 </RelativeLayout>

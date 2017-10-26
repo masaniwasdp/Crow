@@ -6,15 +6,13 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "io.github.masaniwasdp.negativecamera"
+        applicationId "io.github.masaniwasdp.crow"
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 11
         versionName "5.2"
     }
-    lintOptions {
-        abortOnError false
-    }
+    lintOptions { abortOnError false }
 }
 
 dependencies {
@@ -22,7 +20,7 @@ dependencies {
     compile 'com.android.support:support-v4:26.0.0-beta2'
     compile 'com.android.support:design:26.0.0-beta2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile 'com.github.ctodobom:OpenCV-3.1.0-Android:-SNAPSHOT'
+    compile 'com.github.davidmigloz:opencv-android-gradle-repo:3.3.0'
 }
 
 repositories {
