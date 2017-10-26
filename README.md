@@ -3,7 +3,7 @@ Crow
 
 [![Build Status](https://travis-ci.org/masaniwasdp/Crow.svg?branch=master)](https://travis-ci.org/masaniwasdp/Crow)
 
-![NegativeCamera](https://masaniwasdp.github.io/Crow/Screenshot.png)
+![Crow](https://masaniwasdp.github.io/Crow/Screenshot.png)
 
 Aldonas efikon al la fotila bildo en reala tempo.
 
