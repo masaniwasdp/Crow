@@ -27,9 +27,9 @@ import org.opencv.android.OpenCVLoader.initAsync
 import org.opencv.core.Mat
 
 /**
- * Ĉefa activeco de apliko.
+ * Ĉefa aktiveco de apliko.
  *
- * @constructor Kreas activeco.
+ * @constructor Kreas aktiveco.
  */
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
