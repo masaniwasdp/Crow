@@ -1,17 +1,17 @@
-NegativeCamera
+Crow
 ===
 
-[![Build Status](https://travis-ci.org/masaniwasdp/NegativeCamera.svg?branch=master)](https://travis-ci.org/masaniwasdp/NegativeCamera)
+[![Build Status](https://travis-ci.org/masaniwasdp/Crow.svg?branch=master)](https://travis-ci.org/masaniwasdp/Crow)
 
-![NegativeCamera](https://masaniwasdp.github.io/NegativeCamera/Screenshot.png)
+![NegativeCamera](https://masaniwasdp.github.io/Crow/Screenshot.png)
 
-La bito-reverso fotilo.
+Aldonas efikon al la fotila bildo en reala tempo.
 
 ## Priskribo
-La apliko bito-renversas fotilon bildon kaj montras tion en reala tempo.
-Kaj la apliko povas savi tiun bildon kiel jpeg-bildo en interna stokado.
+La apliko aldonas efikon al la fotila bildo kaj montras tion en reala tempo.
+Ankaŭ, ĝi povas savi tiun bildon kiel jpeg-bildo en la interna stokado.
 
 ## Permesilo
 © 2017, masaniwa
 
-La programaro estas licencita sub la [MIT](https://github.com/masaniwasdp/NegativeCamera/blob/master/LICENCE).
+La programaro estas licencita sub la [MIT](https://github.com/masaniwasdp/Crow/blob/master/LICENCE).
