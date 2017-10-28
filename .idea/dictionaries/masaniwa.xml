@@ -2,6 +2,7 @@
   <dictionary name="masaniwa">
     <words>
       <w>akiras</w>
+      <w>aldoni</w>
       <w>apliko</w>
       <w>aŭskultanto</w>
       <w>aŭtoritaton</w>
@@ -10,6 +11,7 @@
       <w>bildojn</w>
       <w>bildon</w>
       <w>bito</w>
+      <w>bluan</w>
       <w>butono</w>
       <w>butonon</w>
       <w>dato</w>
@@ -25,6 +27,8 @@
       <w>dosierujo</w>
       <w>dosierujon</w>
       <w>efektojn</w>
+      <w>efikojn</w>
+      <w>elekt</w>
       <w>elektas</w>
       <w>elektata</w>
       <w>elekti</w>
@@ -46,18 +50,23 @@
       <w>fragmenta</w>
       <w>funkcio</w>
       <w>github</w>
+      <w>griza</w>
       <w>havanta</w>
       <w>havantan</w>
       <w>indikanta</w>
       <w>informanto</w>
       <w>interna</w>
       <w>invokita</w>
+      <w>jenajn</w>
       <w>kanalo</w>
       <w>kanalon</w>
       <w>kiam</w>
+      <w>koloron</w>
       <w>konduto</w>
       <w>konservi</w>
+      <w>konvert</w>
       <w>konvertas</w>
+      <w>konverti</w>
       <w>konvertita</w>
       <w>kreas</w>
       <w>kunteksto</w>
@@ -86,9 +95,12 @@
       <w>registras</w>
       <w>renversas</w>
       <w>reverso</w>
+      <w>reverti</w>
+      <w>ruĝan</w>
       <w>savas</w>
       <w>savi</w>
       <w>savita</w>
+      <w>skalo</w>
       <w>specifitan</w>
       <w>stokado</w>
       <w>teksto</w>
@@ -97,6 +109,7 @@
       <w>tipo</w>
       <w>tipoj</w>
       <w>tiun</w>
+      <w>verdan</w>
       <w>vidigas</w>
       <w>vido</w>
       <w>ĉefa</w>

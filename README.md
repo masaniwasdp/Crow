@@ -10,6 +10,13 @@ Aldonas efikon al la fotila bildo en reala tempo.
 ## Priskribo
 La apliko aldonas efikon al la fotila bildo kaj montras tion en reala tempo.
 Ankaŭ, ĝi povas savi tiun bildon kiel jpeg-bildo en la interna stokado.
+Ĝi povas aldoni jenajn efikojn al la bildo.
+
++ Reverti la koloron.
++ Konverti al griza skalo.
++ Elekti la ruĝan kanalon.
++ Elekti la verdan kanalon.
++ Elekti la bluan kanalon.
 
 ## Permesilo
 © 2017, masaniwa
