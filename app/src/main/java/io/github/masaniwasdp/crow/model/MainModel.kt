@@ -40,6 +40,8 @@ class MainModel(private val notifier: Notifier) {
     /** Liberigas la fotilan kadron de la modelo. */
     fun releaseFrame() {
         frame?.release()
+
+        frame = null
     }
 
     /**
