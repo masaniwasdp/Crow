@@ -9,9 +9,6 @@ import org.opencv.core.Core.bitwise_not
 import org.opencv.core.CvType.CV_8UC3
 import org.opencv.core.Mat
 
-/** La informanto kiam io okazis. */
-typealias Notifier = (resId: Int) -> Unit
-
 /** La tipoj de la fotilo. */
 enum class CameraType { Normal, Inverse, Gray, Red, Green, Blue }
 
@@ -91,6 +88,9 @@ class MainModel(private val notifier: Notifier) {
     var frame: Mat? = null
         private set
 }
+
+/** La informanto kiam io okazis. */
+private typealias Notifier = (resId: Int) -> Unit
 
 /** La dosierujo por savi bildojn. */
 private const val DIRECTORY = "/Crow/"

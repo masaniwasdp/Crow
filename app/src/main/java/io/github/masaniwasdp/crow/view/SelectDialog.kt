@@ -6,9 +6,6 @@ import android.app.FragmentManager
 import android.os.Bundle
 import android.support.v7.app.AlertDialog.Builder
 
-/** La konduto kiam elemento estas elektita. */
-typealias OnSelect = (which: Int) -> Unit
-
 /**
  * Dialogo por elekti elementojn.
  *
@@ -46,6 +43,9 @@ fun FragmentManager.select(resId: Int, onSelect: OnSelect) {
 
     SelectDialog(resId, onSelect).show(this, SELECT_TAG)
 }
+
+/** La konduto kiam elemento estas elektita. */
+private typealias OnSelect = (which: Int) -> Unit
 
 /** La etikedo de dialogoj. */
 private const val SELECT_TAG = "Select"
