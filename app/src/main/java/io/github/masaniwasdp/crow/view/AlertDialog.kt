@@ -7,9 +7,6 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog.Builder
 import io.github.masaniwasdp.crow.R.string.ok
 
-/** La konduto kiam la butono estas puŝita. */
-typealias OnClick = () -> Unit
-
 /**
  * Dialogo havanta unu butonon.
  *
@@ -19,7 +16,7 @@ typealias OnClick = () -> Unit
  */
 class AlertDialog(private val resId: Int = 0, private val onClick: OnClick = {}) : DialogFragment() {
     init {
-        require(resId > 0) { "The resId must be more than 0." }
+        require(resId > 0) { "The resId must be greater than 0." }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -46,10 +43,13 @@ class AlertDialog(private val resId: Int = 0, private val onClick: OnClick = {})
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
 fun FragmentManager.alert(resId: Int, onClick: OnClick) {
-    require(resId > 0) { "The resId must be more than 0." }
+    require(resId > 0) { "The resId must be greater than 0." }
 
     AlertDialog(resId, onClick).show(this, ALERT_TAG)
 }
+
+/** La konduto kiam la butono estas puŝita. */
+private typealias OnClick = () -> Unit
 
 /** La etikedo de dialogoj. */
 private const val ALERT_TAG = "Alert"
