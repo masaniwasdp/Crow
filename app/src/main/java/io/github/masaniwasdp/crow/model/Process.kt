@@ -39,7 +39,5 @@ fun Mat.toBitmap(): Bitmap {
     check(width() > 0) { "The width must be greater than 0." }
     check(height() > 0) { "The height must be greater than 0." }
 
-    return createBitmap(width(), height(), ARGB_8888).also {
-        matToBitmap(this, it)
-    }
+    return createBitmap(width(), height(), ARGB_8888).also { matToBitmap(this, it) }
 }
