@@ -29,8 +29,8 @@ class MainModel(private val notifier: Notifier) {
      * @param height Alteco de la kadro.
      */
     fun initializeFrame(width: Int, height: Int) {
-        require(width > 0) { "The width must be more than 0." }
-        require(height > 0) { "The height must be more than 0." }
+        require(width > 0) { "The width must be greater than 0." }
+        require(height > 0) { "The height must be greater than 0." }
 
         frame?.release()
 

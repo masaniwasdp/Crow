@@ -18,7 +18,7 @@ typealias OnSelect = (which: Int) -> Unit
  */
 class SelectDialog(private val resId: Int = 0, private val onSelect: OnSelect = {}) : DialogFragment() {
     init {
-        require(resId > 0) { "The resId must be more than 0." }
+        require(resId > 0) { "The resId must be greater than 0." }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -42,7 +42,7 @@ class SelectDialog(private val resId: Int = 0, private val onSelect: OnSelect = 
  * @param onSelect Konduto kiam elemento estas elektita.
  */
 fun FragmentManager.select(resId: Int, onSelect: OnSelect) {
-    require(resId > 0) { "The resId must be more than 0." }
+    require(resId > 0) { "The resId must be greater than 0." }
 
     SelectDialog(resId, onSelect).show(this, SELECT_TAG)
 }

@@ -19,7 +19,7 @@ typealias OnClick = () -> Unit
  */
 class AlertDialog(private val resId: Int = 0, private val onClick: OnClick = {}) : DialogFragment() {
     init {
-        require(resId > 0) { "The resId must be more than 0." }
+        require(resId > 0) { "The resId must be greater than 0." }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -46,7 +46,7 @@ class AlertDialog(private val resId: Int = 0, private val onClick: OnClick = {})
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
 fun FragmentManager.alert(resId: Int, onClick: OnClick) {
-    require(resId > 0) { "The resId must be more than 0." }
+    require(resId > 0) { "The resId must be greater than 0." }
 
     AlertDialog(resId, onClick).show(this, ALERT_TAG)
 }
