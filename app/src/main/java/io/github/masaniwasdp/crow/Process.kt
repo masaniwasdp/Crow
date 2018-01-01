@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.model
+package io.github.masaniwasdp.crow
 
 import android.graphics.Bitmap
 import android.graphics.Bitmap.Config.ARGB_8888

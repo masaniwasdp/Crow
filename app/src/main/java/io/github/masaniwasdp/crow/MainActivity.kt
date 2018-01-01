@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.view
+package io.github.masaniwasdp.crow
 
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -11,12 +11,12 @@ import android.view.View.OnClickListener
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
-import io.github.masaniwasdp.crow.R
+import io.github.masaniwasdp.crow.CameraType.values
 import io.github.masaniwasdp.crow.R.array.camera_types
 import io.github.masaniwasdp.crow.R.string.camera_request
 import io.github.masaniwasdp.crow.R.string.storage_request
-import io.github.masaniwasdp.crow.model.CameraType.values
-import io.github.masaniwasdp.crow.model.MainModel
+import io.github.masaniwasdp.crow.dialog.alert
+import io.github.masaniwasdp.crow.dialog.select
 import kotlinx.android.synthetic.main.main_activity.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame

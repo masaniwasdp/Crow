@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.view
+package io.github.masaniwasdp.crow.dialog
 
 import android.app.Dialog
 import android.app.DialogFragment
@@ -10,14 +10,8 @@ import android.support.v7.app.AlertDialog.Builder
  * Dialogo por elekti elementojn.
  *
  * @constructor Kreas dialogon.
- * @property resId ID de listo havanta elementojn kiu estos elektita.
- * @property onSelect Konduto kiam elemento estas elektita.
  */
-class SelectDialog(private val resId: Int = 0, private val onSelect: OnSelect = {}) : DialogFragment() {
-    init {
-        require(resId > 0) { "The resId must be greater than 0." }
-    }
-
+class SelectDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return Builder(activity)
                 .setItems(resId) { _, which -> onSelect(which) }
@@ -29,6 +23,12 @@ class SelectDialog(private val resId: Int = 0, private val onSelect: OnSelect = 
 
         dismiss()
     }
+
+    /** ID de teksto kiu estos montrita. */
+    var resId = 0
+
+    /** Konduto kiam elemento estas elektita. */
+    var onSelect: OnSelect = {}
 }
 
 /**
@@ -39,9 +39,10 @@ class SelectDialog(private val resId: Int = 0, private val onSelect: OnSelect = 
  * @param onSelect Konduto kiam elemento estas elektita.
  */
 fun FragmentManager.select(resId: Int, onSelect: OnSelect) {
-    require(resId > 0) { "The resId must be greater than 0." }
-
-    SelectDialog(resId, onSelect).show(this, SELECT_TAG)
+    SelectDialog().apply {
+        this.resId = resId
+        this.onSelect = onSelect
+    }.show(this, SELECT_TAG)
 }
 
 /** La konduto kiam elemento estas elektita. */

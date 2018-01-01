@@ -1,9 +1,9 @@
-package io.github.masaniwasdp.crow.model
+package io.github.masaniwasdp.crow
 
 import android.content.ContentResolver
+import io.github.masaniwasdp.crow.CameraType.*
 import io.github.masaniwasdp.crow.R.string.saving_failed
 import io.github.masaniwasdp.crow.R.string.saving_success
-import io.github.masaniwasdp.crow.model.CameraType.*
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.core.Core.bitwise_not
 import org.opencv.core.CvType.CV_8UC3

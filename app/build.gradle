@@ -9,16 +9,16 @@ android {
         applicationId "io.github.masaniwasdp.crow"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 13
-        versionName "6.1"
+        versionCode 14
+        versionName "6.2"
     }
     lintOptions { abortOnError false }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.0.0-beta2'
-    compile 'com.android.support:support-v4:26.0.0-beta2'
-    compile 'com.android.support:design:26.0.0-beta2'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.android.support:design:26.1.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.github.davidmigloz:opencv-android-gradle-repo:3.3.0'
 }

@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.view
+package io.github.masaniwasdp.crow.dialog
 
 import android.app.Dialog
 import android.app.DialogFragment
@@ -11,14 +11,8 @@ import io.github.masaniwasdp.crow.R.string.ok
  * Dialogo havanta unu butonon.
  *
  * @constructor Kreas dialogon.
- * @property resId ID de teksto kiu estos montrita.
- * @property onClick Konduto kiam la butono estas puŝita.
  */
-class AlertDialog(private val resId: Int = 0, private val onClick: OnClick = {}) : DialogFragment() {
-    init {
-        require(resId > 0) { "The resId must be greater than 0." }
-    }
-
+class AlertDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         isCancelable = false
 
@@ -33,6 +27,12 @@ class AlertDialog(private val resId: Int = 0, private val onClick: OnClick = {})
 
         dismiss()
     }
+
+    /** ID de teksto kiu estos montrita. */
+    var resId = 0
+
+    /** Konduto kiam la butono estas puŝita. */
+    var onClick: OnClick = {}
 }
 
 /**
@@ -43,9 +43,10 @@ class AlertDialog(private val resId: Int = 0, private val onClick: OnClick = {})
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
 fun FragmentManager.alert(resId: Int, onClick: OnClick) {
-    require(resId > 0) { "The resId must be greater than 0." }
-
-    AlertDialog(resId, onClick).show(this, ALERT_TAG)
+    AlertDialog().apply {
+        this.resId = resId
+        this.onClick = onClick
+    }.show(this, ALERT_TAG)
 }
 
 /** La konduto kiam la butono estas puŝita. */
