@@ -4,6 +4,9 @@ import android.content.ContentResolver
 import io.github.masaniwasdp.crow.CameraType.*
 import io.github.masaniwasdp.crow.R.string.saving_failed
 import io.github.masaniwasdp.crow.R.string.saving_success
+import io.github.masaniwasdp.crow.lib.pickChannel
+import io.github.masaniwasdp.crow.lib.save
+import io.github.masaniwasdp.crow.lib.toBitmap
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.core.Core.bitwise_not
 import org.opencv.core.CvType.CV_8UC3
