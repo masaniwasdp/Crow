@@ -1,10 +1,8 @@
 package io.github.masaniwasdp.crow.lib
 
 import android.graphics.Bitmap
-import android.graphics.Bitmap.Config.ARGB_8888
-import android.graphics.Bitmap.createBitmap
-import org.opencv.android.Utils.matToBitmap
-import org.opencv.core.Core.split
+import org.opencv.android.Utils
+import org.opencv.core.Core
 import org.opencv.core.Mat
 
 /**
@@ -19,9 +17,7 @@ fun Mat.pickChannel(index: Int, frame: Mat) {
     require(channels() > index) { "The index was out of bounds." }
 
     List<Mat?>(channels(), { null }).let {
-        split(this, it)
-
-        assert(it.all { it is Mat })
+        Core.split(this, it)
 
         it[index]!!.copyTo(frame)
 
@@ -39,5 +35,7 @@ fun Mat.toBitmap(): Bitmap {
     check(width() > 0) { "The width must be greater than 0." }
     check(height() > 0) { "The height must be greater than 0." }
 
-    return createBitmap(width(), height(), ARGB_8888).also { matToBitmap(this, it) }
+    return Bitmap
+            .createBitmap(width(), height(), Bitmap.Config.ARGB_8888)
+            .also { Utils.matToBitmap(this, it) }
 }

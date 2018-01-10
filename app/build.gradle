@@ -9,8 +9,8 @@ android {
         applicationId "io.github.masaniwasdp.crow"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 14
-        versionName "6.2"
+        versionCode 15
+        versionName "6.3"
     }
     lintOptions { abortOnError false }
 }

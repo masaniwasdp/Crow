@@ -21,6 +21,7 @@
       <w>dialogoj</w>
       <w>dialogon</w>
       <w>direktisto</w>
+      <w>donita</w>
       <w>dosiernomoj</w>
       <w>dosiero</w>
       <w>dosieroj</w>
@@ -79,12 +80,16 @@
       <w>montrita</w>
       <w>necese</w>
       <w>nombro</w>
+      <w>nomo</w>
       <w>okazis</w>
       <w>permesilo</w>
       <w>permesiron</w>
+      <w>permeso</w>
       <w>permeson</w>
       <w>petas</w>
+      <w>petata</w>
       <w>peti</w>
+      <w>petita</w>
       <w>povas</w>
       <w>priskribo</w>
       <w>programaro</w>
@@ -94,12 +99,16 @@
       <w>renversas</w>
       <w>reverso</w>
       <w>reverti</w>
+      <w>ricevis</w>
       <w>ruĝan</w>
       <w>savas</w>
       <w>savi</w>
       <w>savita</w>
+      <w>sekva</w>
       <w>skalo</w>
       <w>specifitan</w>
+      <w>stato</w>
+      <w>staton</w>
       <w>stokado</w>
       <w>teksto</w>
       <w>tekston</w>
@@ -110,7 +119,9 @@
       <w>verdan</w>
       <w>vidigas</w>
       <w>vido</w>
+      <w>vojo</w>
       <w>ĉefa</w>
+      <w>ŝanĝas</w>
       <w>ŝarĝita</w>
       <w>ŝlosilo</w>
     </words>

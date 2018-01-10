@@ -1,15 +1,12 @@
 package io.github.masaniwasdp.crow
 
 import android.content.ContentResolver
-import io.github.masaniwasdp.crow.CameraType.*
-import io.github.masaniwasdp.crow.R.string.saving_failed
-import io.github.masaniwasdp.crow.R.string.saving_success
 import io.github.masaniwasdp.crow.lib.pickChannel
 import io.github.masaniwasdp.crow.lib.save
 import io.github.masaniwasdp.crow.lib.toBitmap
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
-import org.opencv.core.Core.bitwise_not
-import org.opencv.core.CvType.CV_8UC3
+import org.opencv.android.CameraBridgeViewBase
+import org.opencv.core.Core
+import org.opencv.core.CvType
 import org.opencv.core.Mat
 
 /** La tipoj de la fotilo. */
@@ -21,7 +18,7 @@ enum class CameraType { Normal, Inverse, Gray, Red, Green, Blue }
  * @constructor Kreas la modelon.
  * @property notifier Informanto kiam io okazis en la modelo.
  */
-class MainModel(private val notifier: Notifier) {
+class MainModel(private val notifier: (resId: Int) -> Unit) {
     /**
      * Inicializas la fotilan kadron de la modelo.
      *
@@ -34,7 +31,7 @@ class MainModel(private val notifier: Notifier) {
 
         frame?.release()
 
-        frame = Mat(height, width, CV_8UC3)
+        frame = Mat(height, width, CvType.CV_8UC3)
     }
 
     /** Liberigas la fotilan kadron de la modelo. */
@@ -49,21 +46,21 @@ class MainModel(private val notifier: Notifier) {
      *
      * @param newFrame La fonta fotila bildo.
      */
-    fun updateFrame(newFrame: CvCameraViewFrame) {
-        checkNotNull(frame) { "The frame is not initialized." }
+    fun updateFrame(newFrame: CameraBridgeViewBase.CvCameraViewFrame) {
+        frame?.let {
+            when (type) {
+                CameraType.Normal -> newFrame.rgba().copyTo(it)
 
-        when (type) {
-            Normal -> newFrame.rgba().copyTo(frame)
+                CameraType.Inverse -> Core.bitwise_not(newFrame.rgba(), it)
 
-            Inverse -> bitwise_not(newFrame.rgba(), frame)
+                CameraType.Gray -> newFrame.gray().copyTo(it)
 
-            Gray -> newFrame.gray().copyTo(frame)
+                CameraType.Red -> newFrame.rgba().pickChannel(0, it)
 
-            Red -> newFrame.rgba().pickChannel(0, frame!!)
+                CameraType.Green -> newFrame.rgba().pickChannel(1, it)
 
-            Green -> newFrame.rgba().pickChannel(1, frame!!)
-
-            Blue -> newFrame.rgba().pickChannel(2, frame!!)
+                CameraType.Blue -> newFrame.rgba().pickChannel(2, it)
+            }
         }
     }
 
@@ -73,27 +70,24 @@ class MainModel(private val notifier: Notifier) {
      * @param resolver Content-resolver.
      */
     fun saveFrame(resolver: ContentResolver) {
-        checkNotNull(frame) { "The frame is not initialized." }
+        frame?.let {
+            try {
+                save(it.toBitmap(), DIRECTORY, resolver)
 
-        try {
-            save(frame!!.toBitmap(), DIRECTORY, resolver)
-
-            notifier(saving_success)
-        } catch (e: Exception) {
-            notifier(saving_failed)
+                notifier(R.string.success)
+            } catch (e: Exception) {
+                notifier(R.string.failed)
+            }
         }
     }
 
     /** Tipo de la fotilo en la modelo. */
-    var type = Normal
+    var type = CameraType.Normal
 
     /** Fotila kadro. */
     var frame: Mat? = null
         private set
 }
-
-/** La informanto kiam io okazis. */
-private typealias Notifier = (resId: Int) -> Unit
 
 /** La dosierujo por savi bildojn. */
 private const val DIRECTORY = "/Crow/"

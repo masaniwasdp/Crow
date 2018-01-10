@@ -4,8 +4,8 @@ import android.app.Dialog
 import android.app.DialogFragment
 import android.app.FragmentManager
 import android.os.Bundle
-import android.support.v7.app.AlertDialog.Builder
-import io.github.masaniwasdp.crow.R.string.ok
+import android.support.v7.app.AlertDialog
+import io.github.masaniwasdp.crow.R
 
 /**
  * Dialogo havanta unu butonon.
@@ -16,9 +16,9 @@ class AlertDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         isCancelable = false
 
-        return Builder(activity)
+        return AlertDialog.Builder(activity)
                 .setMessage(getString(resId))
-                .setPositiveButton(ok) { _, _ -> onClick() }
+                .setPositiveButton(R.string.ok) { _, _ -> onClick() }
                 .create()
     }
 
@@ -32,7 +32,7 @@ class AlertDialog : DialogFragment() {
     var resId = 0
 
     /** Konduto kiam la butono estas puŝita. */
-    var onClick: OnClick = {}
+    var onClick: () -> Unit = {}
 }
 
 /**
@@ -42,15 +42,14 @@ class AlertDialog : DialogFragment() {
  * @param resId ID de teksto kiu estos montrita.
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
-fun FragmentManager.alert(resId: Int, onClick: OnClick) {
-    AlertDialog().apply {
+fun FragmentManager.alert(resId: Int, onClick: () -> Unit) {
+    val dialog = AlertDialog().apply {
         this.resId = resId
         this.onClick = onClick
-    }.show(this, ALERT_TAG)
-}
+    }
 
-/** La konduto kiam la butono estas puŝita. */
-private typealias OnClick = () -> Unit
+    dialog.show(this, ALERT_TAG)
+}
 
 /** La etikedo de dialogoj. */
 private const val ALERT_TAG = "Alert"

@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.app.DialogFragment
 import android.app.FragmentManager
 import android.os.Bundle
-import android.support.v7.app.AlertDialog.Builder
+import android.support.v7.app.AlertDialog
 
 /**
  * Dialogo por elekti elementojn.
@@ -13,7 +13,7 @@ import android.support.v7.app.AlertDialog.Builder
  */
 class SelectDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return Builder(activity)
+        return AlertDialog.Builder(activity)
                 .setItems(resId) { _, which -> onSelect(which) }
                 .create()
     }
@@ -28,7 +28,7 @@ class SelectDialog : DialogFragment() {
     var resId = 0
 
     /** Konduto kiam elemento estas elektita. */
-    var onSelect: OnSelect = {}
+    var onSelect: (which: Int) -> Unit = {}
 }
 
 /**
@@ -38,15 +38,14 @@ class SelectDialog : DialogFragment() {
  * @param resId ID de listo havanta elementojn kiu estos elektita.
  * @param onSelect Konduto kiam elemento estas elektita.
  */
-fun FragmentManager.select(resId: Int, onSelect: OnSelect) {
-    SelectDialog().apply {
+fun FragmentManager.select(resId: Int, onSelect: (which: Int) -> Unit) {
+    val dialog = SelectDialog().apply {
         this.resId = resId
         this.onSelect = onSelect
-    }.show(this, SELECT_TAG)
-}
+    }
 
-/** La konduto kiam elemento estas elektita. */
-private typealias OnSelect = (which: Int) -> Unit
+    dialog.show(this, SELECT_TAG)
+}
 
 /** La etikedo de dialogoj. */
 private const val SELECT_TAG = "Select"
