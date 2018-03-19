@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import io.github.masaniwasdp.crow.dialog.alert
 import io.github.masaniwasdp.crow.dialog.select
+import io.github.masaniwasdp.crow.lib.Filter
 import kotlinx.android.synthetic.main.main_activity.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
@@ -73,6 +74,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /** Ĉefa Modelo de apliko. */
+    private val model = MainModel {
+        Toast.makeText(this, getString(it), Toast.LENGTH_SHORT).show()
+    }
+
     /** Callback funkcio kiu estos invokita kiam OpenCV estas ŝarĝita. */
     private val loaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
@@ -87,15 +93,15 @@ class MainActivity : AppCompatActivity() {
     /** Aŭskultanto de fotila vido. */
     private val cameraViewListener = object : CameraBridgeViewBase.CvCameraViewListener2 {
         override fun onCameraViewStarted(width: Int, height: Int) {
-            model.initializeFrame(width, height)
+            model.initialize(width, height)
         }
 
         override fun onCameraViewStopped() {
-            model.releaseFrame()
+            model.release()
         }
 
         override fun onCameraFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat {
-            model.updateFrame(frame)
+            model.update(frame)
 
             return model.frame!!
         }
@@ -104,17 +110,16 @@ class MainActivity : AppCompatActivity() {
     /** Aŭskultanto de konservi butono. */
     private val saveButtonListener = View.OnClickListener {
         request(R.string.storage, Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE) {
-            model.saveFrame(contentResolver)
+            model.save(contentResolver)
         }
     }
 
     /** Aŭskultanto de butono por elekti efektojn. */
     private val selectButtonListener = View.OnClickListener {
-        fragmentManager.select(R.array.camera_types) { model.type = CameraType.values()[it] }
+        fragmentManager.select(R.array.filters) {
+            model.filter = Filter.values()[it]
+        }
     }
-
-    /** Ĉefa Modelo de apliko. */
-    private val model = MainModel { Toast.makeText(this, getString(it), Toast.LENGTH_SHORT).show() }
 }
 
 /** La ID por peti permeson de fotilo. */

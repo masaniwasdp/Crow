@@ -3,7 +3,10 @@
     <words>
       <w>akiras</w>
       <w>aldoni</w>
+      <w>aplikas</w>
       <w>apliko</w>
+      <w>argumento</w>
+      <w>argumentoj</w>
       <w>aŭskultanto</w>
       <w>aŭtoritaton</w>
       <w>bildo</w>
@@ -17,6 +20,7 @@
       <w>dato</w>
       <w>datumojn</w>
       <w>destino</w>
+      <w>devas</w>
       <w>dialogo</w>
       <w>dialogoj</w>
       <w>dialogon</w>
@@ -25,6 +29,7 @@
       <w>dosiernomoj</w>
       <w>dosiero</w>
       <w>dosieroj</w>
+      <w>dosierojn</w>
       <w>dosierujo</w>
       <w>dosierujon</w>
       <w>efektojn</w>
@@ -42,10 +47,16 @@
       <w>etendo</w>
       <w>etikedo</w>
       <w>fari</w>
+      <w>filtras</w>
+      <w>filtrilo</w>
+      <w>filtriloj</w>
+      <w>filtrilon</w>
+      <w>filtrita</w>
       <w>formato</w>
       <w>fotila</w>
       <w>fotilan</w>
       <w>fotilo</w>
+      <w>fotiloj</w>
       <w>fotilon</w>
       <w>fragmenta</w>
       <w>funkcio</w>
@@ -67,6 +78,7 @@
       <w>konvertas</w>
       <w>konverti</w>
       <w>konvertita</w>
+      <w>kordo</w>
       <w>kreas</w>
       <w>kunteksto</w>
       <w>kvalito</w>
@@ -82,6 +94,7 @@
       <w>nombro</w>
       <w>nomo</w>
       <w>okazis</w>
+      <w>permesi</w>
       <w>permesilo</w>
       <w>permesiron</w>
       <w>permeso</w>
@@ -99,10 +112,13 @@
       <w>renversas</w>
       <w>reverso</w>
       <w>reverti</w>
+      <w>rezervas</w>
+      <w>rezervi</w>
       <w>ricevis</w>
       <w>ruĝan</w>
       <w>savas</w>
       <w>savi</w>
+      <w>savis</w>
       <w>savita</w>
       <w>sekva</w>
       <w>skalo</w>
@@ -120,6 +136,7 @@
       <w>vidigas</w>
       <w>vido</w>
       <w>vojo</w>
+      <w>volas</w>
       <w>ĉefa</w>
       <w>ŝanĝas</w>
       <w>ŝarĝita</w>

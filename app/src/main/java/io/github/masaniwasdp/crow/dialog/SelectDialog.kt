@@ -27,8 +27,8 @@ class SelectDialog : DialogFragment() {
     /** ID de teksto kiu estos montrita. */
     var resId = 0
 
-    /** Konduto kiam elemento estas elektita. */
-    var onSelect: (which: Int) -> Unit = {}
+    /** Konduto kiam elemento estas elektita. La argumento estas nombro de la elemento. */
+    var onSelect: (Int) -> Unit = {}
 }
 
 /**
@@ -36,15 +36,15 @@ class SelectDialog : DialogFragment() {
  *
  * @receiver Fragmenta direktisto.
  * @param resId ID de listo havanta elementojn kiu estos elektita.
- * @param onSelect Konduto kiam elemento estas elektita.
+ * @param onSelect Konduto kiam elemento estas elektita. La argumento estas nombro de la elemento.
  */
-fun FragmentManager.select(resId: Int, onSelect: (which: Int) -> Unit) {
-    val dialog = SelectDialog().apply {
-        this.resId = resId
-        this.onSelect = onSelect
-    }
-
-    dialog.show(this, SELECT_TAG)
+fun FragmentManager.select(resId: Int, onSelect: (Int) -> Unit) {
+    SelectDialog()
+            .apply {
+                this.resId = resId
+                this.onSelect = onSelect
+            }
+            .show(this, SELECT_TAG)
 }
 
 /** La etikedo de dialogoj. */

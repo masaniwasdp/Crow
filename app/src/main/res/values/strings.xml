@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Crow</string>
     <string name="ok">OK</string>
-    <string name="success">Saved the image.</string>
-    <string name="failed">Could not save the image.</string>
-    <string name="camera">If you want to use this, you have to allow the permission for the camera.</string>
-    <string name="storage">If you want to save the picture, you have to allow the permission for the storage.</string>
+    <string name="success">Savis la bildon.</string>
+    <string name="failed">Malsukcesis savi la bildon.</string>
+    <string name="camera">Se vi volas uzi ĉi tion, vi devas permesi la permeson de la fotilo.</string>
+    <string name="storage">Se vi volas savi bildojn, vi devas permesi la permeson de la stokado.</string>
 </resources>

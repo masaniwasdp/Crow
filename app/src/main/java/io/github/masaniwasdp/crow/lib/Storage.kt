@@ -7,40 +7,61 @@ import android.os.Environment
 import android.provider.MediaStore
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Escepto de stokado.
+ * Savas bitmap-bildon kiel jpeg-bildo en stokado kaj registras ĝin.
  *
- * @constructor Kreas escepton.
- * @param message Mesaĝo.
- */
-class StorageException(message: String) : Exception(message)
-
-/**
- * Savas bitmap-bildon kiel jpeg-bildo en stokado kaj registras ĝin al content-resolver.
- *
+ * @receiver Content-resolver.
  * @param bitmap Bitmap-bildo kiu estos savita.
  * @param directory Bildo dosierujo.
- * @param resolver Content-resolver.
- * @throws StorageException Kiam malsukcesis fari la dosierujon.
- * @throws java.io.IOException Kiam malsukcesis savi la bildon.
+ * @throws IOException Kiam malsukcesis savi la bildon.
  */
-fun save(bitmap: Bitmap, directory: String, resolver: ContentResolver) {
+fun ContentResolver.save(bitmap: Bitmap, directory: String) {
     require(directory != "") { "The directory must not be empty." }
 
-    val file = File(Environment.getExternalStorageDirectory().path + directory)
+    directory.reserve().let {
+        val name = SimpleDateFormat(FORMAT, Locale.US).format(Date()) + EXTENSION
 
-    if (!file.exists() && !file.mkdir()) throw StorageException("Failed to make the directory.")
+        val path = it.absolutePath + File.pathSeparator + name
 
-    val name = SimpleDateFormat(FORMAT, Locale.US).format(Date()) + EXTENSION
+        bitmap.save(path)
 
-    val path = file.absolutePath + "/" + name
+        store(path, name)
+    }
+}
 
-    FileOutputStream(path).use { bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, it) }
+/**
+ * Rezervas dosierujon en stokado por savi dosierojn.
+ *
+ * @receiver Vojo de dosierujo.
+ * @return Dosierujo por savi dosierojn.
+ * @throws IOException Kiam malsukcesis rezervi la dosierujon.
+ */
+private fun String.reserve(): File {
+    require(this != "") { "The directory must not be empty." }
 
-    resolver.store(path, name)
+    return File(Environment.getExternalStorageDirectory().path + this).also {
+        if (!it.exists() && !it.mkdir()) {
+            throw IOException("Failed to make the directory.")
+        }
+    }
+}
+
+/**
+ * Savas bitmap-bildon kiel jpeg-bildo.
+ *
+ * @receiver Bitmap-bildo kiu estos savita.
+ * @throws IOException Kiam malsukcesis savi la bildon.
+ */
+private fun Bitmap.save(path: String) {
+    require(path != "") { "The path must not be empty." }
+
+    FileOutputStream(path).use {
+        this.compress(Bitmap.CompressFormat.JPEG, QUALITY, it)
+    }
 }
 
 /**
@@ -54,13 +75,15 @@ private fun ContentResolver.store(path: String, name: String) {
     require(path != "") { "The path must not be empty." }
     require(name != "") { "The name must not be empty." }
 
-    val values = ContentValues().apply {
-        put(MediaStore.Images.Media.MIME_TYPE, TYPE)
-        put(MediaStore.Images.Media.TITLE, name)
-        put(DATA_KEY, path)
-    }
-
-    insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+    ContentValues()
+            .apply {
+                put(MediaStore.Images.Media.MIME_TYPE, TYPE)
+                put(MediaStore.Images.Media.TITLE, name)
+                put(DATA_KEY, path)
+            }
+            .let {
+                insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, it)
+            }
 }
 
 /** La dosiero etendo. */

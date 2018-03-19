@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="camera_types">
+    <string-array name="filters">
         <item>Normal</item>
         <item>Inverse</item>
         <item>Gray</item>

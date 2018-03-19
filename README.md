@@ -19,6 +19,6 @@ Ankaŭ, ĝi povas savi tiun bildon kiel jpeg-bildo en la interna stokado.
 + Elekti la bluan kanalon.
 
 ## Permesilo
-© 2017, masaniwa
+© 2018, masaniwa
 
 La programaro estas licencita sub la [MIT](https://github.com/masaniwasdp/Crow/blob/master/LICENCE).

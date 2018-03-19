@@ -43,12 +43,12 @@ class AlertDialog : DialogFragment() {
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
 fun FragmentManager.alert(resId: Int, onClick: () -> Unit) {
-    val dialog = AlertDialog().apply {
-        this.resId = resId
-        this.onClick = onClick
-    }
-
-    dialog.show(this, ALERT_TAG)
+    AlertDialog()
+            .apply {
+                this.resId = resId
+                this.onClick = onClick
+            }
+            .show(this, ALERT_TAG)
 }
 
 /** La etikedo de dialogoj. */

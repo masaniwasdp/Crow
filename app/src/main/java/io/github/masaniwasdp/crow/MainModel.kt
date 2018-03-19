@@ -1,41 +1,37 @@
 package io.github.masaniwasdp.crow
 
 import android.content.ContentResolver
-import io.github.masaniwasdp.crow.lib.pickChannel
+import io.github.masaniwasdp.crow.lib.Filter
 import io.github.masaniwasdp.crow.lib.save
 import io.github.masaniwasdp.crow.lib.toBitmap
 import org.opencv.android.CameraBridgeViewBase
-import org.opencv.core.Core
 import org.opencv.core.CvType
 import org.opencv.core.Mat
-
-/** La tipoj de la fotilo. */
-enum class CameraType { Normal, Inverse, Gray, Red, Green, Blue }
 
 /**
  * Ĉefa Modelo de apliko.
  *
  * @constructor Kreas la modelon.
- * @property notifier Informanto kiam io okazis en la modelo.
+ * @property notifier Informanto kiam io okazis en la modelo. La argumento estas ID de kordo.
  */
-class MainModel(private val notifier: (resId: Int) -> Unit) {
+class MainModel(private val notifier: (Int) -> Unit) {
     /**
      * Inicializas la fotilan kadron de la modelo.
      *
-     * @param width Larĝeco de la kadro.
-     * @param height Alteco de la kadro.
+     * @param w Larĝeco de la kadro.
+     * @param h Alteco de la kadro.
      */
-    fun initializeFrame(width: Int, height: Int) {
-        require(width > 0) { "The width must be greater than 0." }
-        require(height > 0) { "The height must be greater than 0." }
+    fun initialize(w: Int, h: Int) {
+        require(w > 0) { "The w must be greater than 0." }
+        require(h > 0) { "The h must be greater than 0." }
 
         frame?.release()
 
-        frame = Mat(height, width, CvType.CV_8UC3)
+        frame = Mat(h, w, CvType.CV_8UC3)
     }
 
     /** Liberigas la fotilan kadron de la modelo. */
-    fun releaseFrame() {
+    fun release() {
         frame?.release()
 
         frame = null
@@ -44,24 +40,10 @@ class MainModel(private val notifier: (resId: Int) -> Unit) {
     /**
      * Ĝisdatigas la fotilan kadron de la modelo.
      *
-     * @param newFrame La fonta fotila bildo.
+     * @param source La fonta fotila bildo.
      */
-    fun updateFrame(newFrame: CameraBridgeViewBase.CvCameraViewFrame) {
-        frame?.let {
-            when (type) {
-                CameraType.Normal -> newFrame.rgba().copyTo(it)
-
-                CameraType.Inverse -> Core.bitwise_not(newFrame.rgba(), it)
-
-                CameraType.Gray -> newFrame.gray().copyTo(it)
-
-                CameraType.Red -> newFrame.rgba().pickChannel(0, it)
-
-                CameraType.Green -> newFrame.rgba().pickChannel(1, it)
-
-                CameraType.Blue -> newFrame.rgba().pickChannel(2, it)
-            }
-        }
+    fun update(source: CameraBridgeViewBase.CvCameraViewFrame) {
+        frame?.let { filter(source.rgba(), it) }
     }
 
     /**
@@ -69,10 +51,10 @@ class MainModel(private val notifier: (resId: Int) -> Unit) {
      *
      * @param resolver Content-resolver.
      */
-    fun saveFrame(resolver: ContentResolver) {
+    fun save(resolver: ContentResolver) {
         frame?.let {
             try {
-                save(it.toBitmap(), DIRECTORY, resolver)
+                resolver.save(it.toBitmap(), DIRECTORY)
 
                 notifier(R.string.success)
             } catch (e: Exception) {
@@ -81,8 +63,8 @@ class MainModel(private val notifier: (resId: Int) -> Unit) {
         }
     }
 
-    /** Tipo de la fotilo en la modelo. */
-    var type = CameraType.Normal
+    /** Filtrilo de la fotilo en la modelo. */
+    var filter = Filter.Normal
 
     /** Fotila kadro. */
     var frame: Mat? = null
@@ -90,4 +72,4 @@ class MainModel(private val notifier: (resId: Int) -> Unit) {
 }
 
 /** La dosierujo por savi bildojn. */
-private const val DIRECTORY = "/Crow/"
+private const val DIRECTORY = "/Crow"
