@@ -1,16 +1,13 @@
 package io.github.masaniwasdp.crow
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import io.github.masaniwasdp.crow.dialog.alert
-import io.github.masaniwasdp.crow.dialog.select
 import io.github.masaniwasdp.crow.lib.Filter
+import io.github.masaniwasdp.crow.present.request
+import io.github.masaniwasdp.crow.present.select
 import kotlinx.android.synthetic.main.main_activity.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
@@ -56,24 +53,6 @@ class MainActivity : AppCompatActivity() {
         camera_view.disableView()
     }
 
-    /**
-     * Vidigas dialogon kaj petas permeson.
-     *
-     * @param resId ID de teksto kiu estos montrita.
-     * @param permission Permeso kiu estos petita.
-     * @param permissionId ID de la permeso.
-     * @param behavior Konduto kiam ricevis permeson.
-     */
-    private fun request(resId: Int, permission: String, permissionId: Int, behavior: () -> Unit) {
-        when (ContextCompat.checkSelfPermission(this, permission)) {
-            PackageManager.PERMISSION_GRANTED -> behavior()
-
-            else -> fragmentManager.alert(resId) {
-                ActivityCompat.requestPermissions(this, arrayOf(permission), permissionId)
-            }
-        }
-    }
-
     /** Ĉefa Modelo de apliko. */
     private val model = MainModel {
         Toast.makeText(this, getString(it), Toast.LENGTH_SHORT).show()
@@ -81,12 +60,10 @@ class MainActivity : AppCompatActivity() {
 
     /** Callback funkcio kiu estos invokita kiam OpenCV estas ŝarĝita. */
     private val loaderCallback = object : BaseLoaderCallback(this) {
-        override fun onManagerConnected(status: Int) {
-            when (status) {
-                LoaderCallbackInterface.SUCCESS -> camera_view.enableView()
+        override fun onManagerConnected(status: Int) = when (status) {
+            LoaderCallbackInterface.SUCCESS -> camera_view.enableView()
 
-                else -> super.onManagerConnected(status)
-            }
+            else -> super.onManagerConnected(status)
         }
     }
 

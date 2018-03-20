@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.dialog
+package io.github.masaniwasdp.crow.present
 
 import android.app.Dialog
 import android.app.DialogFragment

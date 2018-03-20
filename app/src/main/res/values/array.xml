@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="filters">
-        <item>Normal</item>
-        <item>Inverse</item>
-        <item>Gray</item>
-        <item>Red</item>
-        <item>Green</item>
-        <item>Blue</item>
+        <item>Neniu</item>
+        <item>Inversa koloro</item>
+        <item>Griza skalo</item>
+        <item>Ruĝa kanalo</item>
+        <item>Verda kanalo</item>
+        <item>Blua kanalo</item>
     </string-array>
 </resources>

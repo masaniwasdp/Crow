@@ -27,7 +27,7 @@ class MainModel(private val notifier: (Int) -> Unit) {
 
         frame?.release()
 
-        frame = Mat(h, w, CvType.CV_8UC3)
+        frame = Mat(h, w, CvType.CV_8UC4)
     }
 
     /** Liberigas la fotilan kadron de la modelo. */
@@ -43,7 +43,9 @@ class MainModel(private val notifier: (Int) -> Unit) {
      * @param source La fonta fotila bildo.
      */
     fun update(source: CameraBridgeViewBase.CvCameraViewFrame) {
-        frame?.let { filter(source.rgba(), it) }
+        frame?.let {
+            filter.apply(source.rgba(), it)
+        }
     }
 
     /**
@@ -64,7 +66,7 @@ class MainModel(private val notifier: (Int) -> Unit) {
     }
 
     /** Filtrilo de la fotilo en la modelo. */
-    var filter = Filter.Normal
+    var filter = Filter.None
 
     /** Fotila kadro. */
     var frame: Mat? = null

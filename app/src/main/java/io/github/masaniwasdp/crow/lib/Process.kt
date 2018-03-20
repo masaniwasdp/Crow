@@ -3,37 +3,44 @@ package io.github.masaniwasdp.crow.lib
 import android.graphics.Bitmap
 import org.opencv.android.Utils
 import org.opencv.core.Core
+import org.opencv.core.CvType
 import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 
-/**
- * Filtriloj de bildoj.
- *
- * La argumentoj estas fonta bildo kaj destino.
- */
-enum class Filter : (Mat, Mat) -> Unit {
-    Normal {
-        override fun invoke(s: Mat, d: Mat) = s.copyTo(d)
-    },
+/** Filtriloj de bildoj. */
+enum class Filter {
+    None, Nega, Gray, R, G, B;
 
-    Inverse {
-        override fun invoke(s: Mat, d: Mat) = Core.bitwise_not(s, d)
-    },
+    /**
+     * Aplikas la filtrilon al bildo.
+     *
+     * @param src Fonta bildo.
+     * @param dst Destino de filtrita bildo.
+     */
+    fun apply(src: Mat, dst: Mat) {
+        require(src.type() == CvType.CV_8UC4) { "The type of src must be CV_8UC4." }
 
-    Gray {
-        override fun invoke(s: Mat, d: Mat) = Imgproc.cvtColor(s, d, Imgproc.COLOR_RGBA2GRAY)
-    },
+        filter(src, dst)
+    }
 
-    Red {
-        override fun invoke(s: Mat, d: Mat) = s.pickChannel(0, d)
-    },
+    /**
+     * Filtras bildon.
+     *
+     * @param src Fonta bildo.
+     * @param dst Destino de filtrita bildo.
+     */
+    private fun filter(src: Mat, dst: Mat) = when (this) {
+        None -> src.copyTo(dst)
 
-    Green {
-        override fun invoke(s: Mat, d: Mat) = s.pickChannel(1, d)
-    },
+        Nega -> Core.bitwise_not(src, dst)
 
-    Blue {
-        override fun invoke(s: Mat, d: Mat) = s.pickChannel(2, d)
+        Gray -> Imgproc.cvtColor(src, dst, Imgproc.COLOR_RGBA2GRAY)
+
+        R -> src.pickChannel(0, dst)
+
+        G -> src.pickChannel(1, dst)
+
+        B -> src.pickChannel(2, dst)
     }
 }
 
@@ -60,8 +67,7 @@ fun Mat.toBitmap(): Bitmap {
  * @param frame Destino de elektata kanalo.
  */
 private fun Mat.pickChannel(index: Int, frame: Mat) {
-    require(index >= 0) { "The index must not be negative." }
-    require(channels() > index) { "The index was out of bounds." }
+    require(0.until(channels()).contains(index)) { "The index out of bounds." }
 
     List(channels(), { null as Mat? }).let {
         Core.split(this, it)
