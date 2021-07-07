@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Crow.iml" filepath="$PROJECT_DIR$/Crow.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Crow.iml" filepath="$PROJECT_DIR$/.idea/modules/Crow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Crow.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Crow.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/openCVLibrary310/Crow.openCVLibrary310.iml" filepath="$PROJECT_DIR$/.idea/modules/openCVLibrary310/Crow.openCVLibrary310.iml" />
     </modules>
   </component>
 </project>

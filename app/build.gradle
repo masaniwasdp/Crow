@@ -3,24 +3,52 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
     defaultConfig {
         applicationId "io.github.masaniwasdp.crow"
         minSdkVersion 23
-        targetSdkVersion 26
+        targetSdkVersion 30
         versionCode 17
         versionName "6.5"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    lintOptions { abortOnError false }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs 'libs'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile 'com.github.davidmigloz:opencv-android-gradle-repo:3.3.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation project(path: ':openCVLibrary310')
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
 repositories {
@@ -28,9 +56,12 @@ repositories {
 }
 
 buildscript {
-    repositories { jcenter() }
-
-    dependencies { classpath 'com.cookpad.android.licensetools:license-tools-plugin:1.2.0' }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.cookpad.android.licensetools:license-tools-plugin:1.2.0'
+    }
 }
 
 apply plugin: 'com.cookpad.android.licensetools'

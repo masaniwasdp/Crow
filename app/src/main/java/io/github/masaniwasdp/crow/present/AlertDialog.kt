@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.app.DialogFragment
 import android.app.FragmentManager
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import io.github.masaniwasdp.crow.R
 
 /**
@@ -12,7 +12,7 @@ import io.github.masaniwasdp.crow.R
  *
  * @constructor Kreas dialogon.
  */
-class AlertDialog : DialogFragment() {
+class AleatDialogEx : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         isCancelable = false
 
@@ -43,7 +43,7 @@ class AlertDialog : DialogFragment() {
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
 fun FragmentManager.alert(resId: Int, onClick: () -> Unit) {
-    AlertDialog()
+    AleatDialogEx()
             .apply {
                 this.resId = resId
                 this.onClick = onClick

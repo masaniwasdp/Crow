@@ -2,9 +2,9 @@ package io.github.masaniwasdp.crow
 
 import android.Manifest
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import io.github.masaniwasdp.crow.lib.Filter
 import io.github.masaniwasdp.crow.present.request
 import io.github.masaniwasdp.crow.present.select
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         request(R.string.camera, Manifest.permission.CAMERA, CAMERA) {
-            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_3_0, this, loaderCallback)
+            loaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS)
         }
     }
 
@@ -51,6 +51,12 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
 
         camera_view.disableView()
+    }
+
+    companion object {
+        init {
+            System.loadLibrary("opencv_java3")
+        }
     }
 
     /** Ĉefa Modelo de apliko. */
