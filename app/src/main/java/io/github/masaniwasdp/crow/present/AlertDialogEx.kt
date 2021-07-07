@@ -1,10 +1,10 @@
 package io.github.masaniwasdp.crow.present
 
 import android.app.Dialog
-import android.app.DialogFragment
-import android.app.FragmentManager
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import io.github.masaniwasdp.crow.R
 
 /**
@@ -12,11 +12,11 @@ import io.github.masaniwasdp.crow.R
  *
  * @constructor Kreas dialogon.
  */
-class AleatDialogEx : DialogFragment() {
+class AlertDialogEx : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         isCancelable = false
 
-        return AlertDialog.Builder(activity)
+        return AlertDialog.Builder(activity!!)
                 .setMessage(getString(resId))
                 .setPositiveButton(R.string.ok) { _, _ -> onClick() }
                 .create()
@@ -42,8 +42,8 @@ class AleatDialogEx : DialogFragment() {
  * @param resId ID de teksto kiu estos montrita.
  * @param onClick Konduto kiam la butono eatas puŝita.
  */
-fun FragmentManager.alert(resId: Int, onClick: () -> Unit) {
-    AleatDialogEx()
+fun FragmentManager.alertEx(resId: Int, onClick: () -> Unit) {
+    AlertDialogEx()
             .apply {
                 this.resId = resId
                 this.onClick = onClick

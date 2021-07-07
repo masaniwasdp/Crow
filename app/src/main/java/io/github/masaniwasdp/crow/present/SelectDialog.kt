@@ -1,10 +1,10 @@
 package io.github.masaniwasdp.crow.present
 
 import android.app.Dialog
-import android.app.DialogFragment
-import android.app.FragmentManager
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 
 /**
  * Dialogo por elekti elementojn.
@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog
  */
 class SelectDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(activity)
+        return AlertDialog.Builder(activity!!)
                 .setItems(resId) { _, which -> onSelect(which) }
                 .create()
     }

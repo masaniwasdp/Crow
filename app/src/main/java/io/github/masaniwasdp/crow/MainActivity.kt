@@ -1,18 +1,20 @@
 package io.github.masaniwasdp.crow
 
 import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import io.github.masaniwasdp.crow.lib.Filter
-import io.github.masaniwasdp.crow.present.request
+import io.github.masaniwasdp.crow.present.alertEx
 import io.github.masaniwasdp.crow.present.select
 import kotlinx.android.synthetic.main.main_activity.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.LoaderCallbackInterface
-import org.opencv.android.OpenCVLoader
 import org.opencv.core.Mat
 
 /**
@@ -59,6 +61,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Vidigas dialogon kaj petas permeson.
+     *
+     * @param resId ID de teksto kiu estos montrita.
+     * @param perm Permeso kiu estos petita.
+     * @param permId ID de la permeso.
+     * @param behavior Konduto kiam ricevis permeson.
+     */
+    private fun request(resId: Int, perm: String, permId: Int, behavior: () -> Unit) {
+        when (ContextCompat.checkSelfPermission(this, perm)) {
+            PackageManager.PERMISSION_GRANTED -> behavior()
+
+            else -> supportFragmentManager.alertEx(resId) {
+                ActivityCompat.requestPermissions(this, arrayOf(perm), permId)
+            }
+        }
+    }
+
     /** Ĉefa Modelo de apliko. */
     private val model = MainModel {
         Toast.makeText(this, getString(it), Toast.LENGTH_SHORT).show()
@@ -99,7 +119,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Aŭskultanto de butono por elekti efektojn. */
     private val selectButtonListener = View.OnClickListener {
-        fragmentManager.select(R.array.filters) {
+        supportFragmentManager.select(R.array.filters) {
             model.filter = Filter.values()[it]
         }
     }
