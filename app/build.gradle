@@ -49,14 +49,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.cookpad.android.licensetools:license-tools-plugin:1.2.0'
-    }
-}
-
-apply plugin: 'com.cookpad.android.licensetools'
