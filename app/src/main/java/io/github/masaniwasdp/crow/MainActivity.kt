@@ -1,16 +1,16 @@
 package io.github.masaniwasdp.crow
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import io.github.masaniwasdp.crow.lib.Filter
-import io.github.masaniwasdp.crow.present.alertEx
-import io.github.masaniwasdp.crow.present.select
+import io.github.masaniwasdp.crow.infrastructure.ExternalStorage
+import io.github.masaniwasdp.crow.application.Camera
+import io.github.masaniwasdp.crow.application.CameraFilter
+import io.github.masaniwasdp.crow.contract.ICameraView
+import io.github.masaniwasdp.crow.view.PermissionWrapper
+import io.github.masaniwasdp.crow.view.SelectDialog
 import kotlinx.android.synthetic.main.main_activity.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
@@ -22,25 +22,24 @@ import org.opencv.core.Mat
  *
  * @constructor Kreas aktiveco.
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ICameraView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.main_activity)
 
         camera_view.setCvCameraViewListener(cameraViewListener)
-
         save_button.setOnClickListener(saveButtonListener)
-
         select_button.setOnClickListener(selectButtonListener)
+
+        camera = Camera(this, ExternalStorage(contentResolver))
     }
 
     override fun onResume() {
         super.onResume()
 
-        request(R.string.camera, Manifest.permission.CAMERA, CAMERA) {
-            loaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS)
-        }
+        PermissionWrapper(this, R.string.camera, Manifest.permission.CAMERA)
+            .request { loaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS) }
     }
 
     override fun onPause() {
@@ -55,34 +54,17 @@ class MainActivity : AppCompatActivity() {
         camera_view.disableView()
     }
 
+    override fun notifyMessage(resId: Int) {
+        Toast.makeText(this, getString(resId), Toast.LENGTH_SHORT).show()
+    }
+
     companion object {
         init {
-            System.loadLibrary("opencv_java3")
+            System.loadLibrary(LIBNAME_OPENCV)
         }
     }
 
-    /**
-     * Vidigas dialogon kaj petas permeson.
-     *
-     * @param resId ID de teksto kiu estos montrita.
-     * @param perm Permeso kiu estos petita.
-     * @param permId ID de la permeso.
-     * @param behavior Konduto kiam ricevis permeson.
-     */
-    private fun request(resId: Int, perm: String, permId: Int, behavior: () -> Unit) {
-        when (ContextCompat.checkSelfPermission(this, perm)) {
-            PackageManager.PERMISSION_GRANTED -> behavior()
-
-            else -> supportFragmentManager.alertEx(resId) {
-                ActivityCompat.requestPermissions(this, arrayOf(perm), permId)
-            }
-        }
-    }
-
-    /** Ĉefa Modelo de apliko. */
-    private val model = MainModel {
-        Toast.makeText(this, getString(it), Toast.LENGTH_SHORT).show()
-    }
+    private var camera: Camera? = null
 
     /** Callback funkcio kiu estos invokita kiam OpenCV estas ŝarĝita. */
     private val loaderCallback = object : BaseLoaderCallback(this) {
@@ -96,37 +78,33 @@ class MainActivity : AppCompatActivity() {
     /** Aŭskultanto de fotila vido. */
     private val cameraViewListener = object : CameraBridgeViewBase.CvCameraViewListener2 {
         override fun onCameraViewStarted(width: Int, height: Int) {
-            model.initialize(width, height)
+            camera?.initialize(width, height)
         }
 
         override fun onCameraViewStopped() {
-            model.release()
+            camera?.release()
         }
 
         override fun onCameraFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat {
-            model.update(frame)
+            camera?.update(frame)
 
-            return model.frame!!
+            return camera?.frame!!
         }
     }
 
     /** Aŭskultanto de konservi butono. */
     private val saveButtonListener = View.OnClickListener {
-        request(R.string.storage, Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE) {
-            model.save(contentResolver)
-        }
+        PermissionWrapper(this, R.string.storage, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .request { camera?.save() }
     }
 
     /** Aŭskultanto de butono por elekti efektojn. */
     private val selectButtonListener = View.OnClickListener {
-        supportFragmentManager.select(R.array.filters) {
-            model.filter = Filter.values()[it]
-        }
+        SelectDialog(R.array.filters) { camera?.filter = CameraFilter.values()[it] }
+            .show(supportFragmentManager, TAG_SELECT_FILTER)
     }
 }
 
-/** La ID por peti permeson de fotilo. */
-private const val CAMERA = 0
+private const val LIBNAME_OPENCV = "opencv_java3"
 
-/** La ID por peti permeson de stokado. */
-private const val STORAGE = 1
+private const val TAG_SELECT_FILTER = "SelectFilter"

@@ -1,10 +1,11 @@
-package io.github.masaniwasdp.crow.lib
+package io.github.masaniwasdp.crow.infrastructure
 
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.os.Environment
 import android.provider.MediaStore
+import io.github.masaniwasdp.crow.contract.ICameraStorage
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -12,38 +13,33 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Savas bitmap-bildon kiel jpeg-bildo en stokado kaj registras ĝin.
+ * La ekstera stokado.
  *
- * @receiver Content-resolver.
- * @param bitmap Bitmap-bildo kiu estos savita.
- * @param directory Bildo dosierujo.
- * @throws IOException Kiam malsukcesis savi la bildon.
+ * @property resolver Content-resolver.
  */
-fun ContentResolver.save(bitmap: Bitmap, directory: String) {
-    require(directory != "") { "The directory must not be empty." }
+class ExternalStorage(private val resolver: ContentResolver) : ICameraStorage {
+    override fun save(bitmap: Bitmap) {
+        reserveDirectory().let {
+            val name = SimpleDateFormat(FORMAT, Locale.US).format(Date()) + EXTENSION
+            val path = it.absolutePath + File.pathSeparator + name
 
-    directory.reserve().let {
-        val name = SimpleDateFormat(FORMAT, Locale.US).format(Date()) + EXTENSION
+            FileOutputStream(path).use { x ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, x)
+            }
 
-        val path = it.absolutePath + File.pathSeparator + name
-
-        bitmap.save(path)
-
-        store(path, name)
+            store(resolver, path, name)
+        }
     }
 }
 
 /**
  * Rezervas dosierujon en stokado por savi dosierojn.
  *
- * @receiver Vojo de dosierujo.
  * @return Dosierujo por savi dosierojn.
  * @throws IOException Kiam malsukcesis rezervi la dosierujon.
  */
-private fun String.reserve(): File {
-    require(this != "") { "The directory must not be empty." }
-
-    return File(Environment.getExternalStorageDirectory().path + this).also {
+private fun reserveDirectory(): File {
+    return File(Environment.getExternalStorageDirectory().path + DIRECTORY).also {
         if (!it.exists() && !it.mkdir()) {
             throw IOException("Failed to make the directory.")
         }
@@ -51,27 +47,13 @@ private fun String.reserve(): File {
 }
 
 /**
- * Savas bitmap-bildon kiel jpeg-bildo.
- *
- * @receiver Bitmap-bildo kiu estos savita.
- * @throws IOException Kiam malsukcesis savi la bildon.
- */
-private fun Bitmap.save(path: String) {
-    require(path != "") { "The path must not be empty." }
-
-    FileOutputStream(path).use {
-        this.compress(Bitmap.CompressFormat.JPEG, QUALITY, it)
-    }
-}
-
-/**
  * Registras jpeg-bildon al content-resolver.
  *
- * @receiver Content-resolver.
+ * @param resolver Content-resolver.
  * @param path Vojo de bildo.
  * @param name Nomo de bildo.
  */
-private fun ContentResolver.store(path: String, name: String) {
+private fun store(resolver: ContentResolver, path: String, name: String) {
     require(path != "") { "The path must not be empty." }
     require(name != "") { "The name must not be empty." }
 
@@ -82,9 +64,12 @@ private fun ContentResolver.store(path: String, name: String) {
                 put(DATA_KEY, path)
             }
             .let {
-                insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, it)
+                resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, it)
             }
 }
+
+/** La dosierujo por savi bildojn. */
+private const val DIRECTORY = "/Crow"
 
 /** La dosiero etendo. */
 private const val EXTENSION = ".jpg"
