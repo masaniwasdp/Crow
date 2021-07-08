@@ -53,8 +53,12 @@ class MainActivity : AppCompatActivity(), ICameraView {
         camera_view.disableView()
     }
 
-    override fun notifyMessage(resId: Int) {
-        Toast.makeText(this, getString(resId), Toast.LENGTH_SHORT).show()
+    override fun notifySuccess() {
+        Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun notifyFailed() {
+        Toast.makeText(this, getString(R.string.failed), Toast.LENGTH_SHORT).show()
     }
 
     companion object {

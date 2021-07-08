@@ -1,6 +1,5 @@
 package io.github.masaniwasdp.crow.presentation
 
-import io.github.masaniwasdp.crow.R
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.CvType
 import org.opencv.core.Mat
@@ -55,9 +54,9 @@ class CameraPresenter(private val view: ICameraView, private val storage: ICamer
             try {
                 storage.save(toBitmap(it))
 
-                view.notifyMessage(R.string.success)
+                view.notifySuccess()
             } catch (e: Exception) {
-                view.notifyMessage(R.string.failed)
+                view.notifyFailed()
             }
         }
     }
