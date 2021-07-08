@@ -28,7 +28,8 @@
         res-auto:backgroundTint="@color/colorPrimaryDark"
         res-auto:fabSize="normal"
         res-auto:rippleColor="@color/colorAccent"
-        res-auto:srcCompat="@android:drawable/ic_menu_save" />
+        res-auto:srcCompat="@android:drawable/ic_menu_save"
+        android:contentDescription="@string/save_button" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/select_button"
@@ -43,5 +44,6 @@
         res-auto:backgroundTint="@color/colorPrimaryDark"
         res-auto:fabSize="normal"
         res-auto:rippleColor="@color/colorAccent"
-        res-auto:srcCompat="@android:drawable/ic_menu_manage" />
+        res-auto:srcCompat="@android:drawable/ic_menu_manage"
+        android:contentDescription="@string/select_button" />
 </RelativeLayout>
