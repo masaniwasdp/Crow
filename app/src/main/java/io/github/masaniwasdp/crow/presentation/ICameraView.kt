@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.contract
+package io.github.masaniwasdp.crow.presentation
 
 interface ICameraView {
     fun notifyMessage(resId: Int)

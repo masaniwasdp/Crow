@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.application
+package io.github.masaniwasdp.crow.function
 
 import android.graphics.Bitmap
 import org.opencv.android.Utils

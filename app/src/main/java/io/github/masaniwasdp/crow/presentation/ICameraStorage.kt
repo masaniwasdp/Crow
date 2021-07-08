@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.contract
+package io.github.masaniwasdp.crow.presentation
 
 import android.graphics.Bitmap
 import java.io.IOException

@@ -1,13 +1,15 @@
-package io.github.masaniwasdp.crow.application
+package io.github.masaniwasdp.crow.presentation
 
 import io.github.masaniwasdp.crow.R
-import io.github.masaniwasdp.crow.contract.ICameraStorage
-import io.github.masaniwasdp.crow.contract.ICameraView
+import io.github.masaniwasdp.crow.function.*
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.CvType
 import org.opencv.core.Mat
 
-class Camera(private val view: ICameraView, private val storage: ICameraStorage) {
+class CameraPresenter(private val view: ICameraView, private val storage: ICameraStorage) {
+    /** Filtrila reĝimoj. */
+    enum class Mode { None, Negative, Grayscale, Red, Green, Blue; }
+
     /**
      * Inicializas la fotilan kadron de la modelo.
      *
@@ -37,7 +39,14 @@ class Camera(private val view: ICameraView, private val storage: ICameraStorage)
      */
     fun update(source: CameraBridgeViewBase.CvCameraViewFrame) {
         frame?.let {
-            apply(filter, source.rgba(), it)
+            when (mode) {
+                Mode.None -> source.rgba().copyTo(it)
+                Mode.Negative -> negate(source.rgba(), it)
+                Mode.Grayscale -> grayscale(source.rgba(), it)
+                Mode.Red -> redFilter(source.rgba(), it)
+                Mode.Green -> greenFilter(source.rgba(), it)
+                Mode.Blue -> blueFilter(source.rgba(), it)
+            }
         }
     }
 
@@ -54,33 +63,10 @@ class Camera(private val view: ICameraView, private val storage: ICameraStorage)
         }
     }
 
-    /** Filtrilo de la fotilo en la modelo. */
-    var filter = CameraFilter.None
+    /** Filtrila reĝimo. */
+    var mode = Mode.None
 
     /** Fotila kadro. */
     var frame: Mat? = null
         private set
-}
-
-/** Filtriloj de bildoj. */
-enum class CameraFilter { None, Negative, Grayscale, Red, Green, Blue; }
-
-/**
- * Filtras bildon.
- *
- * @param filter Filtrilo.
- * @param src Fonta bildo.
- * @param dst Destino de filtrita bildo.
- */
-private fun apply(filter: CameraFilter, src: Mat, dst: Mat) {
-    require(src.type() == CvType.CV_8UC4) { "The type of src must be CV_8UC4." }
-
-    when (filter) {
-        CameraFilter.None -> src.copyTo(dst)
-        CameraFilter.Negative -> negate(src, dst)
-        CameraFilter.Grayscale -> grayscale(src, dst)
-        CameraFilter.Red -> redFilter(src, dst)
-        CameraFilter.Green -> greenFilter(src, dst)
-        CameraFilter.Blue -> blueFilter(src, dst)
-    }
 }

@@ -5,7 +5,7 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.os.Environment
 import android.provider.MediaStore
-import io.github.masaniwasdp.crow.contract.ICameraStorage
+import io.github.masaniwasdp.crow.presentation.ICameraStorage
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

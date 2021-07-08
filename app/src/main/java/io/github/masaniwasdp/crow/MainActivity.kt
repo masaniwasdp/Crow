@@ -6,9 +6,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import io.github.masaniwasdp.crow.infrastructure.ExternalStorage
-import io.github.masaniwasdp.crow.application.Camera
-import io.github.masaniwasdp.crow.application.CameraFilter
-import io.github.masaniwasdp.crow.contract.ICameraView
+import io.github.masaniwasdp.crow.presentation.CameraPresenter
+import io.github.masaniwasdp.crow.presentation.ICameraView
 import io.github.masaniwasdp.crow.view.PermissionWrapper
 import io.github.masaniwasdp.crow.view.SelectDialog
 import kotlinx.android.synthetic.main.main_activity.*
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity(), ICameraView {
         save_button.setOnClickListener(saveButtonListener)
         select_button.setOnClickListener(selectButtonListener)
 
-        camera = Camera(this, ExternalStorage(contentResolver))
+        cameraPresenter = CameraPresenter(this, ExternalStorage(contentResolver))
     }
 
     override fun onResume() {
@@ -64,7 +63,7 @@ class MainActivity : AppCompatActivity(), ICameraView {
         }
     }
 
-    private var camera: Camera? = null
+    private var cameraPresenter: CameraPresenter? = null
 
     /** Callback funkcio kiu estos invokita kiam OpenCV estas ŝarĝita. */
     private val loaderCallback = object : BaseLoaderCallback(this) {
@@ -78,29 +77,29 @@ class MainActivity : AppCompatActivity(), ICameraView {
     /** Aŭskultanto de fotila vido. */
     private val cameraViewListener = object : CameraBridgeViewBase.CvCameraViewListener2 {
         override fun onCameraViewStarted(width: Int, height: Int) {
-            camera?.initialize(width, height)
+            cameraPresenter?.initialize(width, height)
         }
 
         override fun onCameraViewStopped() {
-            camera?.release()
+            cameraPresenter?.release()
         }
 
         override fun onCameraFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat {
-            camera?.update(frame)
+            cameraPresenter?.update(frame)
 
-            return camera?.frame!!
+            return cameraPresenter?.frame!!
         }
     }
 
     /** Aŭskultanto de konservi butono. */
     private val saveButtonListener = View.OnClickListener {
         PermissionWrapper(this, R.string.storage, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .request { camera?.save() }
+            .request { cameraPresenter?.save() }
     }
 
     /** Aŭskultanto de butono por elekti efektojn. */
     private val selectButtonListener = View.OnClickListener {
-        SelectDialog(R.array.filters) { camera?.filter = CameraFilter.values()[it] }
+        SelectDialog(R.array.filters) { cameraPresenter?.mode = CameraPresenter.Mode.values()[it] }
             .show(supportFragmentManager, TAG_SELECT_FILTER)
     }
 }
