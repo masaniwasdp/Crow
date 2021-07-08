@@ -13,7 +13,7 @@ import io.github.masaniwasdp.crow.R
  * @property resId ID de teksto kiu estos montrita.
  * @property onClick Konduto kiam la butono estas puŝita.
  */
-class AlertDialogEx(private val resId: Int, private val onClick: () -> Unit) : DialogFragment() {
+class NotifyDialog(private val resId: Int, private val onClick: () -> Unit) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         isCancelable = false
 

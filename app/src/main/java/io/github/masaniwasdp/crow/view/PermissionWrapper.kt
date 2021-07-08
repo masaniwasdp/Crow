@@ -22,7 +22,7 @@ class PermissionWrapper(
         when (ContextCompat.checkSelfPermission(activity, permission)) {
             PackageManager.PERMISSION_GRANTED -> onGranted()
 
-            else -> AlertDialogEx(resId) {
+            else -> NotifyDialog(resId) {
                     ActivityCompat.requestPermissions(activity, arrayOf(permission), 0)
                 }.show(activity.supportFragmentManager, TAG_REQUEST_PERMISSION)
         }
