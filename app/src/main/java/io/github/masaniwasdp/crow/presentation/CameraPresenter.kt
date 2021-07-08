@@ -1,7 +1,6 @@
 package io.github.masaniwasdp.crow.presentation
 
 import io.github.masaniwasdp.crow.R
-import io.github.masaniwasdp.crow.function.*
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.CvType
 import org.opencv.core.Mat
