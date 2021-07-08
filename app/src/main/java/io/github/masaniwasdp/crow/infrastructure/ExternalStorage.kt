@@ -34,7 +34,9 @@ class ExternalStorage(private val resolver: ContentResolver) : ICameraStorage {
             }
         }
 
-        val finalValue = ContentValues().apply { put(MediaStore.Images.Media.IS_PENDING, 0) }
+        val finalValue = ContentValues().apply {
+            put(MediaStore.Images.Media.IS_PENDING, 0)
+        }
 
         resolver.update(item, finalValue, null, null)
     }

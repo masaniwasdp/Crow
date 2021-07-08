@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity(), ICameraView {
         super.onResume()
 
         PermissionWrapper(this, R.string.camera, Manifest.permission.CAMERA)
-            .request { loaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS) }
+            .request {
+                loaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS)
+            }
     }
 
     override fun onPause() {
@@ -97,14 +99,14 @@ class MainActivity : AppCompatActivity(), ICameraView {
 
     /** Aŭskultanto de konservi butono. */
     private val saveButtonListener = View.OnClickListener {
-        PermissionWrapper(this, R.string.storage, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .request { cameraPresenter?.save() }
+        cameraPresenter?.save()
     }
 
     /** Aŭskultanto de butono por elekti efektojn. */
     private val selectButtonListener = View.OnClickListener {
-        SelectDialog(R.array.filters) { cameraPresenter?.mode = CameraPresenter.Mode.values()[it] }
-            .show(supportFragmentManager, TAG_SELECT_FILTER)
+        SelectDialog(R.array.filters) {
+            cameraPresenter?.mode = CameraPresenter.Mode.values()[it]
+        }.show(supportFragmentManager, TAG_SELECT_FILTER)
     }
 }
 
