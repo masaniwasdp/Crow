@@ -16,28 +16,12 @@
         res-auto:camera_id="any" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        res-auto:backgroundTint="@color/colorPrimaryDark"
-        res-auto:fabSize="normal"
-        res-auto:rippleColor="@color/colorAccent"
-        res-auto:srcCompat="@android:drawable/ic_menu_save"
-        android:contentDescription="@string/save_button" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/select_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
         android:focusable="true"

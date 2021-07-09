@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'kotlin-android'
 
 android {
@@ -45,7 +44,6 @@ android {
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation project(path: ':openCVLibrary310')
 }

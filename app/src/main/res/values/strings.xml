@@ -6,6 +6,5 @@
     <string name="failed">Malsukcesis savi la bildon.</string>
     <string name="camera">Se vi volas uzi ĉi tion, vi devas permesi la permeson de la fotilo.</string>
     <string name="storage">Se vi volas savi bildojn, vi devas permesi la permeson de la stokado.</string>
-    <string name="save_button">Butono konservi</string>
     <string name="select_button">Butono elekti</string>
 </resources>

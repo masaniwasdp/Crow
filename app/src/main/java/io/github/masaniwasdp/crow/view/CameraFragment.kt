@@ -23,7 +23,7 @@ class CameraFragment : Fragment(), ICameraFragment {
             .inflate(inflater, container, false)
             .apply {
                 cameraView.setCvCameraViewListener(cameraViewListener)
-                saveButton.setOnClickListener(saveButtonListener)
+                cameraView.setOnClickListener(cameraViewListener)
                 selectButton.setOnClickListener(selectButtonListener)
             }
 
@@ -81,7 +81,8 @@ class CameraFragment : Fragment(), ICameraFragment {
 
     private lateinit var loaderCallback: BaseLoaderCallback
 
-    private val cameraViewListener = object : CameraBridgeViewBase.CvCameraViewListener2 {
+    private val cameraViewListener = object
+        : CameraBridgeViewBase.CvCameraViewListener2, View.OnClickListener {
         override fun onCameraViewStarted(width: Int, height: Int) {
             presenter?.initialize(width, height)
         }
@@ -95,10 +96,10 @@ class CameraFragment : Fragment(), ICameraFragment {
 
             return frame.rgba()
         }
-    }
 
-    private val saveButtonListener = View.OnClickListener {
-        presenter?.saveFrame()
+        override fun onClick(v: View?) {
+            presenter?.saveFrame()
+        }
     }
 
     private val selectButtonListener = View.OnClickListener {
