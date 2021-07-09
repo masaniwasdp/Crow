@@ -6,6 +6,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 
 /**
+ * Envolva objekto de permeso.
+ *
+ * @constructor Kreas envolvan objekton.
  * @property resId ID de teksto kiu estos montrita.
  * @property permission Permeso kiu estos petita.
  */

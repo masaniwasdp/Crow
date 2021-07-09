@@ -1,70 +1,67 @@
 package io.github.masaniwasdp.crow.presentation
 
+import android.graphics.Bitmap
+import io.github.masaniwasdp.crow.contract.ICameraFragment
+import io.github.masaniwasdp.crow.contract.ICameraPresenter
+import io.github.masaniwasdp.crow.contract.IMediaStore
 import org.opencv.android.CameraBridgeViewBase
+import org.opencv.android.Utils
 import org.opencv.core.CvType
 import org.opencv.core.Mat
 
-class CameraPresenter(private val view: ICameraView, private val storage: ICameraStorage) {
-    /** Filtrila reĝimoj. */
-    enum class Mode { None, Negative, Grayscale, Red, Green, Blue; }
-
-    /**
-     * Inicializas la fotilan kadron de la modelo.
-     *
-     * @param w Larĝeco de la kadro.
-     * @param h Alteco de la kadro.
-     */
-    fun initialize(w: Int, h: Int) {
-        require(w > 0) { "The w must be greater than 0." }
-        require(h > 0) { "The h must be greater than 0." }
-
+class CameraPresenter(
+    private val fragment: ICameraFragment, private val store: IMediaStore) : ICameraPresenter {
+    override fun initialize(w: Int, h: Int) {
         frame?.release()
 
         frame = Mat(h, w, CvType.CV_8UC4)
     }
 
-    /** Liberigas la fotilan kadron de la modelo. */
-    fun release() {
+    override fun finalise() {
         frame?.release()
 
         frame = null
     }
 
-    /**
-     * Ĝisdatigas la fotilan kadron de la modelo.
-     *
-     * @param source La fonta fotila bildo.
-     */
-    fun update(source: CameraBridgeViewBase.CvCameraViewFrame) {
-        frame?.let {
+    override fun processFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat {
+        this.frame?.let {
             when (mode) {
-                Mode.None -> source.rgba().copyTo(it)
-                Mode.Negative -> negate(source.rgba(), it)
-                Mode.Grayscale -> grayscale(source.rgba(), it)
-                Mode.Red -> redFilter(source.rgba(), it)
-                Mode.Green -> greenFilter(source.rgba(), it)
-                Mode.Blue -> blueFilter(source.rgba(), it)
+                ICameraPresenter.Mode.None -> frame.rgba().copyTo(it)
+                ICameraPresenter.Mode.Negative -> negate(frame.rgba(), it)
+                ICameraPresenter.Mode.Grayscale -> grayscale(frame.rgba(), it)
+                ICameraPresenter.Mode.Red -> redFilter(frame.rgba(), it)
+                ICameraPresenter.Mode.Green -> greenFilter(frame.rgba(), it)
+                ICameraPresenter.Mode.Blue -> blueFilter(frame.rgba(), it)
             }
+
+            return it
         }
+
+        return Mat()
     }
 
-    /** Savas la fotilan kadron kiel jpeg-bildo. */
-    fun save() {
+    override fun saveFrame() {
         frame?.let {
             try {
-                storage.save(toBitmap(it))
+                val bitmap = Bitmap
+                    .createBitmap(it.cols(), it.rows(), Bitmap.Config.ARGB_8888)
+                    .also { x -> Utils.matToBitmap(it, x) }
 
-                view.notifySuccess()
+                store.saveImage(bitmap)
+
+                fragment.notifySuccess()
             } catch (e: Exception) {
-                view.notifyFailed()
+                fragment.notifyFailed()
             }
         }
     }
 
-    /** Filtrila reĝimo. */
-    var mode = Mode.None
+    override fun modeChange(mode: ICameraPresenter.Mode) {
+        this.mode = mode
+    }
+
+    private var mode = ICameraPresenter.Mode.None
 
     /** Fotila kadro. */
-    var frame: Mat? = null
-        private set
+    private var frame: Mat? = null
 }

@@ -1,7 +1,5 @@
 package io.github.masaniwasdp.crow.presentation
 
-import android.graphics.Bitmap
-import org.opencv.android.Utils
 import org.opencv.core.Core
 import org.opencv.core.CvType
 import org.opencv.core.Mat
@@ -35,21 +33,6 @@ fun blueFilter(src: Mat, dst: Mat) {
     require(0.until(src.channels()).contains(2)) { "The index out of bounds." }
 
     pickChannel(src, dst, 2)
-}
-
-/**
- * Konvertas Mat-bildon en Bitmap-bildo.
- *
- * @param frame Bildo kiu estos konvertita.
- * @return Konvertita Bitmap-bildo.
- */
-fun toBitmap(frame: Mat): Bitmap {
-    require(frame.cols() > 0) { "The cols must be greater than 0." }
-    require(frame.rows() > 0) { "The rows must be greater than 0." }
-
-    return Bitmap
-        .createBitmap(frame.cols(), frame.rows(), Bitmap.Config.ARGB_8888)
-        .also { Utils.matToBitmap(frame, it) }
 }
 
 /**

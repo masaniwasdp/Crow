@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment
  */
 class SelectDialog(private val resId: Int, private val onSelect: (Int) -> Unit) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(requireActivity())
                 .setItems(resId) { _, which -> onSelect(which) }
                 .create()
     }

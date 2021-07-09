@@ -4,24 +4,19 @@ import android.content.ContentResolver
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.provider.MediaStore
-import io.github.masaniwasdp.crow.presentation.ICameraStorage
+import io.github.masaniwasdp.crow.contract.IMediaStore
 import java.io.FileOutputStream
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
- * La ekstera stokado.
+ * La stokado de amaskomunikilaroj.
  *
  * @property resolver Content-resolver.
  */
-class ExternalStorage(private val resolver: ContentResolver) : ICameraStorage {
-    override fun save(bitmap: Bitmap) {
-        val name = SimpleDateFormat(FORMAT, Locale.US).format(Date()) + EXTENSION
-
+class MediaStore(private val resolver: ContentResolver) : IMediaStore {
+    override fun saveImage(bitmap: Bitmap) {
         val collection = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
 
         val newValues = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, name)
             put(MediaStore.Images.Media.MIME_TYPE, TYPE)
             put(MediaStore.Images.Media.IS_PENDING, 1)
         }
@@ -42,14 +37,8 @@ class ExternalStorage(private val resolver: ContentResolver) : ICameraStorage {
     }
 }
 
-/** La dosiero etendo. */
-private const val EXTENSION = ".jpg"
-
 /** La MIME-tipo de bildoj dosieroj. */
 private const val TYPE = "image/jpeg"
-
-/** La formato de dato kaj tempo de dosiernomoj kiu estos savita. */
-private const val FORMAT = "yyyyMMdd_hhmmss"
 
 /** La kvalito de savi bildojn. */
 private const val QUALITY = 95
