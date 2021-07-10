@@ -6,9 +6,9 @@ import org.opencv.android.Utils
 import org.opencv.core.CvType
 import org.opencv.core.Mat
 
-class Camera(
-    private val view: ICamera.IView, private val store: IMediaStore
-) : ICamera {
+class FilterCamera(
+    private val view: IFilterCameraView, private val store: IMediaStore
+) : IFilterCamera {
     override fun initialize(w: Int, h: Int) {
         frame?.release()
 
@@ -24,12 +24,12 @@ class Camera(
     override fun updateFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat {
         this.frame?.let {
             when (mode) {
-                ICamera.Mode.None -> frame.rgba().copyTo(it)
-                ICamera.Mode.Negative -> negate(frame.rgba(), it)
-                ICamera.Mode.Grayscale -> grayscale(frame.rgba(), it)
-                ICamera.Mode.Red -> redFilter(frame.rgba(), it)
-                ICamera.Mode.Green -> greenFilter(frame.rgba(), it)
-                ICamera.Mode.Blue -> blueFilter(frame.rgba(), it)
+                IFilterCamera.Mode.None -> frame.rgba().copyTo(it)
+                IFilterCamera.Mode.Negative -> negate(frame.rgba(), it)
+                IFilterCamera.Mode.Grayscale -> grayscale(frame.rgba(), it)
+                IFilterCamera.Mode.Red -> redFilter(frame.rgba(), it)
+                IFilterCamera.Mode.Green -> greenFilter(frame.rgba(), it)
+                IFilterCamera.Mode.Blue -> blueFilter(frame.rgba(), it)
             }
 
             return it
@@ -55,11 +55,11 @@ class Camera(
         }
     }
 
-    override fun modeChange(mode: ICamera.Mode) {
+    override fun modeChange(mode: IFilterCamera.Mode) {
         this.mode = mode
     }
 
-    private var mode = ICamera.Mode.None
+    private var mode = IFilterCamera.Mode.None
 
     /** Fotila kadro. */
     private var frame: Mat? = null

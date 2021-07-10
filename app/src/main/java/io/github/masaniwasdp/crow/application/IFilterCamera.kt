@@ -3,13 +3,8 @@ package io.github.masaniwasdp.crow.application
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.Mat
 
-interface ICamera {
+interface IFilterCamera {
     enum class Mode { None, Negative, Grayscale, Red, Green, Blue; }
-
-    interface IView {
-        fun notifySuccess()
-        fun notifyFailed()
-    }
 
     /**
      * Inicializas la fotilan kadron.

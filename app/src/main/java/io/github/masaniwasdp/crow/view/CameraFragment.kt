@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import io.github.masaniwasdp.crow.R
-import io.github.masaniwasdp.crow.application.ICamera
+import io.github.masaniwasdp.crow.application.IFilterCamera
+import io.github.masaniwasdp.crow.application.IFilterCameraView
 import io.github.masaniwasdp.crow.databinding.FragmentCameraBinding
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.LoaderCallbackInterface
 import org.opencv.core.Mat
 
-class CameraFragment : Fragment(), ICamera.IView {
+class CameraFragment : Fragment(), IFilterCameraView {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -76,7 +77,7 @@ class CameraFragment : Fragment(), ICamera.IView {
             .show()
     }
 
-    var camera: ICamera? = null
+    var filterCamera: IFilterCamera? = null
 
     private var binding: FragmentCameraBinding? = null
 
@@ -85,27 +86,27 @@ class CameraFragment : Fragment(), ICamera.IView {
     private val cameraViewListener = object
         : CameraBridgeViewBase.CvCameraViewListener2, View.OnClickListener {
         override fun onCameraViewStarted(width: Int, height: Int) {
-            camera?.initialize(width, height)
+            filterCamera?.initialize(width, height)
         }
 
         override fun onCameraViewStopped() {
-            camera?.finalise()
+            filterCamera?.finalise()
         }
 
         override fun onCameraFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat {
-            camera?.let { return it.updateFrame(frame) }
+            filterCamera?.let { return it.updateFrame(frame) }
 
             return frame.rgba()
         }
 
         override fun onClick(v: View?) {
-            camera?.saveFrame()
+            filterCamera?.saveFrame()
         }
     }
 
     private val selectButtonListener = View.OnClickListener {
         SelectDialog(R.array.filters) {
-            camera?.modeChange(ICamera.Mode.values()[it])
+            filterCamera?.modeChange(IFilterCamera.Mode.values()[it])
         }.show(requireActivity().supportFragmentManager, TAG_SELECT_FILTER)
     }
 }
