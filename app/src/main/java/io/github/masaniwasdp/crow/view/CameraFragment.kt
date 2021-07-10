@@ -86,11 +86,11 @@ class CameraFragment : Fragment(), IFilterCameraView {
     private val cameraViewListener = object
         : CameraBridgeViewBase.CvCameraViewListener2, View.OnClickListener {
         override fun onCameraViewStarted(width: Int, height: Int) {
-            filterCamera?.initialize(width, height)
+            filterCamera?.initializeFrame(width, height)
         }
 
         override fun onCameraViewStopped() {
-            filterCamera?.finalise()
+            filterCamera?.finaliseFrame()
         }
 
         override fun onCameraFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat {

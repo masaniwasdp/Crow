@@ -12,10 +12,10 @@ interface IFilterCamera {
      * @param w Larĝeco de la kadro.
      * @param h Alteco de la kadro.
      */
-    fun initialize(w: Int, h: Int)
+    fun initializeFrame(w: Int, h: Int)
 
     /** Liberigas la fotilan kadron. */
-    fun finalise()
+    fun finaliseFrame()
 
     fun updateFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat
 

@@ -9,13 +9,13 @@ import org.opencv.core.Mat
 class FilterCamera(
     private val view: IFilterCameraView, private val store: IMediaStore
 ) : IFilterCamera {
-    override fun initialize(w: Int, h: Int) {
+    override fun initializeFrame(w: Int, h: Int) {
         frame?.release()
 
         frame = Mat(h, w, CvType.CV_8UC4)
     }
 
-    override fun finalise() {
+    override fun finaliseFrame() {
         frame?.release()
 
         frame = null
