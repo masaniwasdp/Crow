@@ -18,9 +18,9 @@ class NotifyDialog(private val resId: Int, private val onClick: () -> Unit) : Di
         isCancelable = false
 
         return AlertDialog.Builder(requireActivity())
-                .setMessage(getString(resId))
-                .setPositiveButton(R.string.ok) { _, _ -> onClick() }
-                .create()
+            .setMessage(getString(resId))
+            .setPositiveButton(R.string.ok) { _, _ -> onClick() }
+            .create()
     }
 
     override fun onPause() {

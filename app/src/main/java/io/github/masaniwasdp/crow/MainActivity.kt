@@ -2,8 +2,8 @@ package io.github.masaniwasdp.crow
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.github.masaniwasdp.crow.application.Camera
 import io.github.masaniwasdp.crow.infrastructure.MediaStore
-import io.github.masaniwasdp.crow.presentation.CameraPresenter
 import io.github.masaniwasdp.crow.view.CameraFragment
 
 /** Ĉefa aktiveco de apliko. */
@@ -14,16 +14,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
 
         if (savedInstanceState == null) {
-            val fragment = CameraFragment()
+            CameraFragment().let {
+                it.camera = Camera(it, MediaStore(contentResolver))
 
-            fragment.presenter = CameraPresenter(fragment, MediaStore(contentResolver))
-
-            supportFragmentManager
-                .beginTransaction()
-                .apply {
-                    add(R.id.container, fragment)
-                    commit()
+                supportFragmentManager.beginTransaction().let { x ->
+                    x.add(R.id.container, it)
+                    x.commit()
                 }
+            }
         }
     }
 

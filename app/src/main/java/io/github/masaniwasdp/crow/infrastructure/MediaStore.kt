@@ -4,7 +4,7 @@ import android.content.ContentResolver
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.provider.MediaStore
-import io.github.masaniwasdp.crow.contract.IMediaStore
+import io.github.masaniwasdp.crow.application.IMediaStore
 import java.io.FileOutputStream
 
 /**
@@ -24,8 +24,8 @@ class MediaStore(private val resolver: ContentResolver) : IMediaStore {
         val item = resolver.insert(collection, newValues)!!
 
         resolver.openFileDescriptor(item, "w", null).use {
-            FileOutputStream(it!!.fileDescriptor).use { s ->
-                bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, s)
+            FileOutputStream(it!!.fileDescriptor).use { x ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, x)
             }
         }
 

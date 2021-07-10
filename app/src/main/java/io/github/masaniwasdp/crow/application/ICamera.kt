@@ -1,10 +1,15 @@
-package io.github.masaniwasdp.crow.contract
+package io.github.masaniwasdp.crow.application
 
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.Mat
 
-interface ICameraPresenter {
+interface ICamera {
     enum class Mode { None, Negative, Grayscale, Red, Green, Blue; }
+
+    interface IView {
+        fun notifySuccess()
+        fun notifyFailed()
+    }
 
     /**
      * Inicializas la fotilan kadron.
@@ -17,7 +22,7 @@ interface ICameraPresenter {
     /** Liberigas la fotilan kadron. */
     fun finalise()
 
-    fun processFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat
+    fun updateFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat
 
     /** Savas la fotilan kadron. */
     fun saveFrame()

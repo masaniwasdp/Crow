@@ -15,7 +15,8 @@ import androidx.fragment.app.FragmentActivity
 class PermissionWrapper(
     private val activity: FragmentActivity,
     private val resId: Int,
-    private val permission: String) {
+    private val permission: String
+) {
     /**
      * Vidigas dialogon kaj petas permeson.
      *
@@ -26,8 +27,8 @@ class PermissionWrapper(
             PackageManager.PERMISSION_GRANTED -> onGranted()
 
             else -> NotifyDialog(resId) {
-                    ActivityCompat.requestPermissions(activity, arrayOf(permission), 0)
-                }.show(activity.supportFragmentManager, TAG_REQUEST_PERMISSION)
+                ActivityCompat.requestPermissions(activity, arrayOf(permission), 0)
+            }.show(activity.supportFragmentManager, TAG_REQUEST_PERMISSION)
         }
     }
 }

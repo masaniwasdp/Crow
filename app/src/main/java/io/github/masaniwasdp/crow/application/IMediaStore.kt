@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.contract
+package io.github.masaniwasdp.crow.application
 
 import android.graphics.Bitmap
 

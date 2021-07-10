@@ -1,4 +1,4 @@
-package io.github.masaniwasdp.crow.presentation
+package io.github.masaniwasdp.crow.application
 
 import org.opencv.core.Core
 import org.opencv.core.CvType
@@ -45,12 +45,11 @@ fun blueFilter(src: Mat, dst: Mat) {
 private fun pickChannel(src: Mat, dst: Mat, index: Int) {
     require(0.until(src.channels()).contains(index)) { "The index out of bounds." }
 
-    (List(src.channels()) { null } as List<Mat?>)
-        .let {
-            Core.split(src, it)
+    (List(src.channels()) { null } as List<Mat?>).let {
+        Core.split(src, it)
 
-            it[index]!!.copyTo(dst)
+        it[index]!!.copyTo(dst)
 
-            it.forEach { x -> x!!.release() }
-        }
+        it.forEach { x -> x!!.release() }
+    }
 }
