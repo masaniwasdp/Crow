@@ -106,7 +106,7 @@ class CameraFragment : Fragment(), IFilterCameraView {
 
     private val selectButtonListener = View.OnClickListener {
         SelectDialog(R.array.filters) {
-            filterCamera?.modeChange(IFilterCamera.Mode.values()[it])
+            filterCamera?.useFilter(IFilterCamera.Filter.values()[it])
         }.show(requireActivity().supportFragmentManager, TAG_SELECT_FILTER)
     }
 }

@@ -23,13 +23,13 @@ class FilterCamera(
 
     override fun updateFrame(frame: CameraBridgeViewBase.CvCameraViewFrame): Mat {
         this.frame?.let {
-            when (mode) {
-                IFilterCamera.Mode.None -> frame.rgba().copyTo(it)
-                IFilterCamera.Mode.Negative -> negate(frame.rgba(), it)
-                IFilterCamera.Mode.Grayscale -> grayscale(frame.rgba(), it)
-                IFilterCamera.Mode.Red -> redFilter(frame.rgba(), it)
-                IFilterCamera.Mode.Green -> greenFilter(frame.rgba(), it)
-                IFilterCamera.Mode.Blue -> blueFilter(frame.rgba(), it)
+            when (filter) {
+                IFilterCamera.Filter.None -> frame.rgba().copyTo(it)
+                IFilterCamera.Filter.Negative -> negate(frame.rgba(), it)
+                IFilterCamera.Filter.Grayscale -> grayscale(frame.rgba(), it)
+                IFilterCamera.Filter.Red -> redFilter(frame.rgba(), it)
+                IFilterCamera.Filter.Green -> greenFilter(frame.rgba(), it)
+                IFilterCamera.Filter.Blue -> blueFilter(frame.rgba(), it)
             }
 
             return it
@@ -55,11 +55,11 @@ class FilterCamera(
         }
     }
 
-    override fun modeChange(mode: IFilterCamera.Mode) {
-        this.mode = mode
+    override fun useFilter(filter: IFilterCamera.Filter) {
+        this.filter = filter
     }
 
-    private var mode = IFilterCamera.Mode.None
+    private var filter = IFilterCamera.Filter.None
 
     /** Fotila kadro. */
     private var frame: Mat? = null

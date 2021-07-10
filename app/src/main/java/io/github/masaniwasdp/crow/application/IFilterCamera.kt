@@ -4,7 +4,7 @@ import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.Mat
 
 interface IFilterCamera {
-    enum class Mode { None, Negative, Grayscale, Red, Green, Blue; }
+    enum class Filter { None, Negative, Grayscale, Red, Green, Blue; }
 
     /**
      * Inicializas la fotilan kadron.
@@ -22,5 +22,5 @@ interface IFilterCamera {
     /** Savas la fotilan kadron. */
     fun saveFrame()
 
-    fun modeChange(mode: Mode)
+    fun useFilter(filter: Filter)
 }
